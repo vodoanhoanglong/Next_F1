@@ -1,0 +1,20 @@
+{
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true,
+    "source.sortMembers": true
+  },
+  "eslint.workingDirectories": [
+    "./src/*",
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "css.lint.unknownAtRules": "ignore"
+}
