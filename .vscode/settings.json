@@ -7,6 +7,10 @@
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "vscode.json-language-features"
   },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true,
