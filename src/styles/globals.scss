@@ -8,6 +8,8 @@
 @import "./blog";
 @import "./introduction";
 @import "./partner";
+@import "./product";
+@import "./product-detail";
 
 * {
   margin: 0;
@@ -16,11 +18,21 @@
   font-family: "Bebas Neue", cursive;
 }
 
-h1 {
-  font-size: x-large;
-  font-weight: bolder;
-}
 
+@layer base {
+  h1 {
+    @apply text-2xl;
+    @apply font-black;
+  }
+  h2 {
+    @apply text-xl;
+    @apply font-extrabold;
+  }
+  h3 {
+    @apply text-xs;
+    @apply font-bold;
+  }
+}
 
 @layer components {
   .common-background {
@@ -49,7 +61,6 @@ h1 {
     object-fit: contain;
   }
 
-
   .divide {
     width: 100%;
     border: none;
@@ -57,5 +68,56 @@ h1 {
 
     margin-left: 50px;
     margin-right: 50px;
+  }
+
+  .breadcrumb__item {
+    cursor: pointer;
+    font-size: large !important;
+    font-weight: bold !important;
+    transition: 0.3s;
+
+    &:hover {
+        color: #0F1F3D;
+    }
+  }
+
+
+  .footer {
+    width: 100%;
+    margin-top: 5rem;
+    padding: 2.5rem 0;
+    background-color: #0F1F3D;
+    color: white;
+    font-weight: bold;
+    
+    &__container {
+      width: 50%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    
+      li {
+        padding: .5rem 0;
+      }
+
+      &-info {
+        max-width: 300px;
+        word-wrap: none;
+      }
+
+     
+    }
+
+    &__copyright {
+      width: 50%;
+      margin: auto;
+
+      &-divide {
+        border: none;
+        border-bottom: 1px solid #DFE2E9;
+      }
+    }
   }
 }

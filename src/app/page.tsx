@@ -1,9 +1,7 @@
 import { getDataHomePage } from "../apis";
-import { Blog, Card, IMasterData, IMasterDataType, Introduction, NavBar, Partner, Slider } from "../components";
+import { Blog, Card, IMasterData, IMasterDataType, Introduction, Partner, Slider } from "../components";
 
-export const revalidate = 0;
-
-export default async function Home() {
+export default async function HomePage() {
   try {
     const { products, masterData, blogs } = await getDataHomePage();
 
@@ -20,14 +18,13 @@ export default async function Home() {
 
     return (
       <main className="overflow-hidden common-background">
-        <NavBar />
         <Slider images={sliderData} />
         <span className="mt-5 flex justify-center items-center">
           <hr className="divide" />
           <h1 className="whitespace-nowrap">Sản Phẩm Nổi Bật</h1>
           <hr className="divide" />
         </span>
-        <div className="mt-5 grid grid-cols-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 mb-20 mr-20 ml-20 grid grid-cols-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (
             <Card card={product} key={product.code} />
           ))}

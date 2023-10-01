@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { ICardData, IMasterData } from "../../components";
+import { IMasterData, IProductData } from "../../components";
 import { IBlogData } from "../../components/blog";
 import { getClient } from "../client";
 
@@ -47,7 +47,7 @@ export const getDataHomePage = async () => {
 
     return {
       masterData: result.data["master_data"] as IMasterData[],
-      products: result.data["products"] as ICardData[],
+      products: result.data["products"] as IProductData[],
       blogs: result.data["blogs"] as IBlogData[],
     };
   } catch (error) {
