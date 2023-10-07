@@ -1,31 +1,28 @@
 @keyframes slide {
-    100% {
-        transform: translateX(0);
-    }
-    0% {
-        transform: translateX(-66.6%);
-    }
+  100% {
+    transform: translateX(0);
+  }
+  0% {
+    transform: translateX(-66.6%);
+  }
 }
-
-
 
 .partner {
-    margin: 5rem 5rem;
-    width: 17340px;
+  margin: 5rem 5rem;
+  width: 17340px;
+  display: flex;
+  animation: slide 60s linear infinite forwards;
+
+  &__item {
+    overflow: hidden;
     display: flex;
-    animation: slide 60s linear infinite forwards;
+    align-items: center;
+    justify-content: space-around;
 
-    &__item {
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        
-        &-logo {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
-      }
+    &-logo {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
     }
+  }
 }
-

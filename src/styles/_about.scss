@@ -1,0 +1,53 @@
+.about {
+  width: 100%;
+  h1 {
+    color: rgb(248, 115, 5);
+  }
+
+  &__content {
+    padding-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 450px;
+
+    &-detail {
+      width: 50%;
+      text-align: center;
+
+      h1 {
+        margin-bottom: 20px;
+        line-height: 2;
+        text-transform: uppercase;
+        font-size: x-large;
+      }
+    }
+  }
+
+  &__des {
+    width: 60%;
+    margin: auto;
+
+    &-banner {
+      margin-top: -150px;
+      margin-bottom: 150px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+
+      &__out {
+        border-radius: 24px;
+        width: 250px;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      &__in {
+        border-radius: 24px;
+        width: 400px;
+        height: 300px;
+        object-fit: cover;
+      }
+    }
+  }
+}

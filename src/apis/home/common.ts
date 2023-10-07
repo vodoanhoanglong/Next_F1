@@ -24,13 +24,16 @@ const queryDataHomePage = gql`
       }
     }
 
-    blogs(order_by: { createdAt: desc }, limit: 4) {
+    blogs(order_by: { createdAt: desc }, limit: 3) {
       id
       title
       description
       content
       banner
       createdAt
+      type {
+        data
+      }
       creator {
         fullName
         avatar

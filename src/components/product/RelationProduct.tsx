@@ -28,7 +28,7 @@ export default function RelationProduct({
           <Card card={product} key={product.id} />
         ))}
       </div>
-      <div className="product__container-item__pagination">
+      <div className="product__container-item__pagination pagination">
         <Pagination
           count={Math.ceil(totalRelationProducts / relationProductLimit)}
           page={page}

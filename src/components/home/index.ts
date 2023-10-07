@@ -1,3 +1,4 @@
+import { IBlogData } from "..";
 import Footer from "./Footer";
 import Introduction from "./Introduction";
 import NavBar from "./NavBar";
@@ -14,13 +15,16 @@ export interface IMasterData {
   id: string;
   data: string;
   type: IMasterDataType;
+  additionalValue: string;
+  blogs: IBlogData[];
 }
 
 export interface IIntroduction {
   imageLeft: string;
+  imageCenter: string;
   imageRight: string;
-  content: string;
   description: string;
+  title: string;
 }
 
 export enum NavBarKey {
@@ -30,6 +34,7 @@ export enum NavBarKey {
   News = "news",
   Contact = "contact",
   ProductDetail = "product_detail",
+  NewsDetail = "news_detail",
 }
 
 export enum FooterKey {
@@ -51,7 +56,8 @@ export const NavBarLink = {
   [NavBarKey.About]: "/about",
   [NavBarKey.Product]: "/product?page=1&sortBy=createdAt&sortOrder=desc",
   [NavBarKey.ProductDetail]: "/product-detail?page=1",
-  [NavBarKey.News]: "/news",
+  [NavBarKey.News]: "/news?page=1",
+  [NavBarKey.NewsDetail]: "/news-detail",
   [NavBarKey.Contact]: "/contact",
 } as Record<string, string>;
 

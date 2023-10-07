@@ -10,6 +10,10 @@
 @import "./partner";
 @import "./product";
 @import "./product-detail";
+@import "./about";
+@import "./dynamic-content";
+@import "./news";
+@import "./news-detail";
 
 * {
   margin: 0;
@@ -17,7 +21,6 @@
   box-sizing: border-box;
   font-family: "Bebas Neue", cursive;
 }
-
 
 @layer base {
   h1 {
@@ -36,7 +39,7 @@
 
 @layer components {
   .common-background {
-    background-color: #F3F4F6;
+    background-color: #f3f4f6;
     opacity: 1;
   }
 
@@ -46,7 +49,7 @@
 
   .navbar-item:hover {
     transition: 0.5s;
-    color: #18AFD9;
+    color: #18afd9;
   }
 
   .slider__image {
@@ -64,7 +67,7 @@
   .divide {
     width: 100%;
     border: none;
-    border-bottom: 2px solid #DFE2E9;
+    border-bottom: 2px solid #dfe2e9;
 
     margin-left: 50px;
     margin-right: 50px;
@@ -77,19 +80,18 @@
     transition: 0.3s;
 
     &:hover {
-        color: #0F1F3D;
+      color: #0f1f3d;
     }
   }
-
 
   .footer {
     width: 100%;
     margin-top: 5rem;
     padding: 2.5rem 0;
-    background-color: #0F1F3D;
+    background-color: #0f1f3d;
     color: white;
     font-weight: bold;
-    
+
     &__container {
       width: 50%;
       margin: auto;
@@ -97,17 +99,15 @@
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-    
+
       li {
-        padding: .5rem 0;
+        padding: 0.5rem 0;
       }
 
       &-info {
         max-width: 300px;
         word-wrap: none;
       }
-
-     
     }
 
     &__copyright {
@@ -116,8 +116,34 @@
 
       &-divide {
         border: none;
-        border-bottom: 1px solid #DFE2E9;
+        border-bottom: 1px solid #dfe2e9;
       }
+    }
+  }
+
+  .pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.5s;
+
+      &:hover {
+        background-color: #0f1f3d;
+        color: white;
+      }
+    }
+
+    .Mui-selected {
+      &:hover {
+        background-color: #0f1f3d;
+        color: white;
+      }
+      background-color: #0f1f3d !important;
+      color: white !important;
     }
   }
 }

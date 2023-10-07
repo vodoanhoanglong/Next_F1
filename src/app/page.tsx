@@ -41,7 +41,7 @@ export default async function HomePage() {
           <hr className="divide" />
         </span>
         <div className="mt-5 grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {[blogs[0], blogs[0], blogs[0]].map((blog) => (
+          {blogs.map((blog) => (
             <Blog blog={blog} key={blog.id} />
           ))}
         </div>

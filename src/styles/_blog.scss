@@ -1,98 +1,105 @@
-.blog{
-    user-select:none;
-    width: 500px;
-    max-width: 500px;
-    height: 510px;
-    margin: 5rem auto;
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1);;
-    border-radius: 1.5rem;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
-    overflow: hidden;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .3s;
-    
-    &__image{
-      height: 250px;
-      width: 100%;
-      object-fit: cover;
+.blog {
+  user-select: none;
+  width: 500px;
+  max-width: 500px;
+  height: 540px;
+  margin: 1rem auto;
+  border-radius: 24px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  overflow: hidden;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+
+  &__image {
+    border-radius: 16px;
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+
+    h2 {
+      font-size: x-large;
     }
-    
-    &__container{
+
+    &-tag {
+      background-color: #18afd9;
+      padding: 7px 10px;
+      border-radius: 5px;
+      width: fit-content;
+      margin-bottom: 10px;
+
+      h3 {
+        color: white;
+        font-weight: bolder;
+        font-size: 18px;
+      }
+    }
+
+    &-title {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-transform: capitalize;
+    }
+
+    &-description {
+      margin: 0.5rem 0;
+      color: #050505;
+      height: 120px;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    &-creator {
       display: flex;
-      flex-direction: column;
-      width: 100%;
-      padding: 1rem;
-      
-      h2 {
-        font-size: x-large; 
-      }
-      
-      hr{
+      align-items: center;
+
+      &__info {
+        padding-left: 15px;
         width: 100%;
-        border: none;
-        border-bottom: 1px solid #18AFD9;
-        margin: 3px 0 3px 0;
       }
 
-      &-title {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+      &_arrow {
+        color: #18afd9;
+        font-weight: bolder;
+        font-size: 32px;
+        cursor: pointer;
+        transition: 0.5s;
+        opacity: 0;
       }
-
-      &-description{
-        margin: .5rem 0;
-        color: #050505;
-        height: 120px;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      &-creator{
-        display: flex;
-        align-items: center;
-        margin: .5rem 0 -.3rem 0;   
-
-        &__info {
-          padding-left: 15px;
-          width: 100%;
-        }
-
-        
-        &_arrow {
-          color: #18AFD9;
-          font-weight: bolder;
-          font-size: 32px;
-          cursor: pointer;
-          transition: 0.5s;
-          opacity: 0;  
-        }
-      }
-    }
-    ::before{
-      position: fixed;
-      content: "";
-      box-shadow: 0 0 100px 40px #ffffff08;
-      top: -10%;
-      left: -100%;
-      transform: rotate(-45deg);
-      height: 60rem;
-      transition: .7s all;
-    }
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
-      --tw-translate-y: 0.125rem;
-    }
-    
-    &:hover &__container-creator_arrow {
-      padding-right: 10px;
-      padding-left: 5px;
-      opacity: 1;
     }
   }
+  ::before {
+    position: fixed;
+    content: "";
+    box-shadow: 0 0 100px 40px #ffffff08;
+    top: -10%;
+    left: -100%;
+    transform: rotate(-45deg);
+    height: 60rem;
+    transition: 0.7s all;
+  }
+  &:hover {
+    cursor: pointer;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    --tw-translate-y: 0.125rem;
+  }
+
+  &:hover &__container-creator_arrow {
+    padding-right: 10px;
+    padding-left: 5px;
+    opacity: 1;
+  }
+}

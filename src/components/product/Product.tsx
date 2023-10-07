@@ -218,7 +218,7 @@ export default function Product({ products, categories, totalProduct }: IProduct
             <h1 className="flex justify-center mt-[200px]">Không Tìm Thấy Sản Phẩm</h1>
           )}
           {products.length ? (
-            <div className="product__container-item__pagination">
+            <div className="product__container-item__pagination pagination">
               <Pagination count={Math.ceil(totalProduct / productLimit)} page={page} onChange={handleChangePage} />
             </div>
           ) : null}

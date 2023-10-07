@@ -1,5 +1,6 @@
 export const productLimit = 12;
 export const relationProductLimit = 5;
+export const blogLimit = 6;
 
 export interface IPaginationProps {
   page: number;
@@ -25,19 +26,27 @@ export interface IProductDetailFilterProps extends IPaginationProps {
   categoryCode: string;
 }
 
+export interface INewsDetailFilterProps extends IPaginationProps {
+  newsId: string;
+}
+
 export interface IPageDetailProps {
   slug: string;
 }
 
 export interface IPageProps {
   params: IPageDetailProps;
-  searchParams: IProductFilterProps | IProductDetailFilterProps;
+  searchParams: IProductFilterProps | IProductDetailFilterProps | INewsDetailFilterProps;
 }
 
 export enum SortingKey {
   SortBy = "sortBy",
   SortOrder = "sortOrder",
 }
+
+export const KeyCommonFilter = {
+  Page: "page",
+};
 
 export const KeyProductFilter = {
   ...SortingKey,

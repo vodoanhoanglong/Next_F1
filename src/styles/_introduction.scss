@@ -1,42 +1,41 @@
 .introduction {
-    width: 80%;
-    display: flex;
-    justify-content: flex-start;
-    margin: auto;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 
-    img {
-        width: 400px;
-        max-width: 500px;
-        border-radius: 10px;
+  img {
+    width: 400px;
+    max-width: 500px;
+    border-radius: 10px;
+  }
+
+  &__content {
+    font-weight: 500;
+    font-size: 20px;
+    padding: 20px 50px 0 50px;
+    width: 800px;
+
+    button {
+      color: rgb(57, 112, 253, 1);
+      font-size: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &::after {
+        transition: 0.5s;
+        padding-left: 15px;
+        font-weight: bold;
+        font-size: 35px;
+        content: "»";
+      }
+
+      &:hover::after {
+        padding-left: 20px;
+      }
     }
-
-    &__content {
-        font-weight: 500;
-        font-size: 20px;
-        padding: 20px 50px 0 50px;
-        width: 800px;
-        
-        button {
-            color: rgb(57, 112, 253, 1);
-            font-size: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.5s;
-            
-            &::after {
-                transition: 0.5s;
-                padding-left: 15px;
-                font-weight: bold;
-                font-size: 35px;
-                content: '»';
-            }
-
-
-            &:hover::after {
-                padding-left: 20px;
-            }
-        }
-    }
+  }
 }

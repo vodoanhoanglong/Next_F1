@@ -5,6 +5,7 @@ import { IIntroduction, IMasterData, NavBarKey, NavBarLink } from ".";
 
 export default function Introduction({ introduction }: { introduction: IMasterData }) {
   const { imageRight, imageLeft, description } = JSON.parse(introduction.data) as IIntroduction;
+
   return (
     <div className="introduction">
       <Image src={imageRight} priority quality={100} width="0" height="0" sizes="100vw" alt="introduction" />
