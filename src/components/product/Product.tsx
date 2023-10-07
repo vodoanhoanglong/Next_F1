@@ -209,7 +209,7 @@ export default function Product({ products, categories, totalProduct }: IProduct
             </FormControl>
           </div>
           {products.length ? (
-            <div className="mt-10 mb-10 grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <div className="mt-10 mb-10 grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {products.map((product) => (
                 <Card card={product} key={product.id} />
               ))}
