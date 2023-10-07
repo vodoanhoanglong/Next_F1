@@ -23,7 +23,7 @@ export default function Card({ card }: { card: IProductData }) {
       />
       <div className="card__container">
         <h2 className="font-extrabold">{card.name}</h2>
-        <h4 className="font-bold">
+        <h4 className="mt-2 font-bold">
           {card.code} - {convertCurrencyToVND(card.price)}
         </h4>
         <p className="card__container--description">{card.description}</p>

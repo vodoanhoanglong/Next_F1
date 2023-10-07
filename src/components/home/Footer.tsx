@@ -30,18 +30,18 @@ export default function Footer() {
                   e.preventDefault();
                 }}
               >
-                (+84) 932 765 080
+                (+84) 932 509 283
               </Link>
             </li>
             <li>
               <Link
                 href={"#"}
                 onClick={(e) => {
-                  window.location = "mailto:long.vo.tech@gmail.com" as unknown as Location;
+                  window.location = "mailto:tien.hung.chemicals@gmail.com" as unknown as Location;
                   e.preventDefault();
                 }}
               >
-                long.vo.tech@gmail.com
+                tien.hung.chemicals@gmail.com
               </Link>
             </li>
             <li>

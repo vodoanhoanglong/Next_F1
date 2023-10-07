@@ -1,7 +1,8 @@
 .card {
   user-select: none;
-  width: 300px;
-  max-width: 350px;
+  width: 400px;
+  max-width: 400px;
+  height: 500px;
   background-color: #ffffff;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
@@ -33,6 +34,11 @@
     &--description {
       margin: 0.5rem 0;
       color: #050505;
+      height: 120px;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     &--creator {
@@ -56,8 +62,6 @@
     transition: 0.7s all;
   }
   &:hover {
-    // border: 1px solid #ffffff44;
-    // box-shadow: 0 7px 50px 10px #000000aa;
     cursor: pointer;
     box-shadow:
       0 10px 15px -3px rgba(0, 0, 0, 0.1),

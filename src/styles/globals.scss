@@ -14,12 +14,13 @@
 @import "./dynamic-content";
 @import "./news";
 @import "./news-detail";
+@import "./contact";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Bebas Neue", cursive;
+  font-family: "Roboto", sans-serif;
 }
 
 @layer base {
@@ -145,5 +146,13 @@
       background-color: #0f1f3d !important;
       color: white !important;
     }
+  }
+
+  .h1-common {
+    text-transform: uppercase;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 50px;
+    line-height: 1.4;
   }
 }

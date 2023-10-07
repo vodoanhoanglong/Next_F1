@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 import Image from "next/image";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { IMasterData } from ".";
 
 export default function Slider({ images }: { images: IMasterData[] } = { images: [] }) {
@@ -13,9 +13,12 @@ export default function Slider({ images }: { images: IMasterData[] } = { images:
       pagination={{
         dynamicBullets: true,
       }}
-      modules={[Pagination]}
+      modules={[Autoplay, Pagination]}
       loop
-      autoplay
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
     >
       {images.map((image, index) => (
         <SwiperSlide key={index} className="overflow-hidden relative">
