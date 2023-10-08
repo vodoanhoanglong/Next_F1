@@ -2,7 +2,7 @@ import { ApolloClient, DefaultOptions, HttpLink, InMemoryCache } from "@apollo/c
 import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 
-const serverUrl = "https://7e95-2405-4802-801c-e0-ede3-98cb-5f83-7cc1.ngrok-free.app/v1/graphql";
+const serverUrl = "http://data.thchemical.api//v1/graphql";
 const guestToken = `u4g70QI}6\dSCELiOor9r&nZ:i25j]:3`;
 
 const graphqlUrl = new HttpLink({

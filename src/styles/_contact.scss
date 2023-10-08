@@ -1,6 +1,10 @@
 .contact {
   width: 100%;
 
+  .error {
+    color: rgb(218, 54, 54);
+  }
+
   &__intro {
     padding: 50px;
 
@@ -19,23 +23,70 @@
   }
 
   &__form {
-    width: 30%;
+    width: 35%;
     margin: auto;
     margin-top: 50px;
     border-radius: 24px;
     padding: 30px;
-    height: 380px;
+    height: 500px;
     box-shadow:
       rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
       rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     --tw-translate-y: 0.125rem;
     background-color: #ffff;
 
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 5px;
+    }
+
+    input {
+      background-color: #303245;
+      border-radius: 16px;
+      border: 0;
+      box-sizing: border-box;
+      color: #eee;
+      font-size: 18px;
+      height: 50px;
+      outline: 0;
+      margin-top: 5px;
+      padding: 4px 20px 0;
+    }
+
+    textarea {
+      background-color: #303245;
+      border-radius: 16px;
+      border: 0;
+      box-sizing: border-box;
+      color: #eee;
+      font-size: 18px;
+      height: 100px;
+      resize: none;
+      outline: 0;
+      margin-top: 5px;
+      padding: 15px;
+    }
+
+    &-fullName {
+      width: 100%;
+    }
+
+    &-divide {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-msg {
+      margin-top: 20px;
+    }
+
     button {
-      width: 150px;
+      width: 180px;
       height: 50px;
       padding: 10px;
-      border-radius: 20px;
+      border-radius: 16px;
       background-color: #0f1f3d;
       color: white;
       font-weight: bold;
