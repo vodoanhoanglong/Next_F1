@@ -2,8 +2,8 @@ import { ApolloClient, DefaultOptions, HttpLink, InMemoryCache } from "@apollo/c
 import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 
-const serverUrl = "http://data.thchemical.api//v1/graphql";
-const guestToken = `u4g70QI}6\dSCELiOor9r&nZ:i25j]:3`;
+const serverUrl = process.env.API_ENDPOINT;
+const guestToken = process.env.GUST_TOKEN;
 
 const graphqlUrl = new HttpLink({
   uri: serverUrl,

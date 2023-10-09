@@ -1,7 +1,16 @@
 import HomeIcon from "@mui/icons-material/Home";
 import { Divider, Link } from "@mui/material";
 import { getDataProductDetailPage } from "../../apis/product/product-detail";
-import { Breadcrumb, DynamicContent, NavBarKey, NavBarLink, ProductDetail, RelationProduct } from "../../components";
+import {
+  Breadcrumb,
+  DynamicContent,
+  Footer,
+  NavBar,
+  NavBarKey,
+  NavBarLink,
+  ProductDetail,
+  RelationProduct,
+} from "../../components";
 import { IPageProps, IProductDetailFilterProps } from "../../shared";
 
 export default async function ProductDetailPage({ searchParams }: IPageProps) {
@@ -31,32 +40,36 @@ export default async function ProductDetailPage({ searchParams }: IPageProps) {
   ];
 
   return (
-    <main className="overflow-hidden common-background">
-      <div className="w-[50%] m-auto">
-        <Breadcrumb breadcrumbs={breadcrumbs} style={{ marginLeft: "10px", marginTop: "50px" }} />
-        <ProductDetail
-          product={product}
-          relationProducts={relationProducts}
-          totalRelationProduct={totalRelationProducts}
-        />
-        {product.htmlContent && (
-          <div>
-            <Divider />
-            <div className="flex justify-center m-[20px]">
-              <h1>Mô tả sản phẩm</h1>
+    <section>
+      <NavBar />
+      <main className="overflow-hidden common-background">
+        <div className="w-[50%] m-auto">
+          <Breadcrumb breadcrumbs={breadcrumbs} style={{ marginLeft: "10px", marginTop: "50px" }} />
+          <ProductDetail
+            product={product}
+            relationProducts={relationProducts}
+            totalRelationProduct={totalRelationProducts}
+          />
+          {product.htmlContent && (
+            <div>
+              <Divider />
+              <div className="flex justify-center m-[20px]">
+                <h1>Mô tả sản phẩm</h1>
+              </div>
+              <DynamicContent content={product.htmlContent} />
             </div>
-            <DynamicContent content={product.htmlContent} />
+          )}
+          <br />
+          <Divider />
+          <div className="flex justify-center m-[20px] mb-[100px]">
+            <h1>Sản phẩm liên quan</h1>
           </div>
-        )}
-        <br />
-        <Divider />
-        <div className="flex justify-center m-[20px] mb-[100px]">
-          <h1>Sản phẩm liên quan</h1>
+          <div className="flex justify-center">
+            <RelationProduct relationProducts={relationProducts} totalRelationProducts={totalRelationProducts} />
+          </div>
         </div>
-        <div className="flex justify-center">
-          <RelationProduct relationProducts={relationProducts} totalRelationProducts={totalRelationProducts} />
-        </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </section>
   );
 }

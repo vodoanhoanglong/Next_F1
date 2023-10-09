@@ -1,5 +1,5 @@
 import { getDataProductPage } from "../../apis";
-import { Product } from "../../components";
+import { Footer, NavBar, Product } from "../../components";
 import { IPageProps, IProductFilterProps } from "../../shared";
 
 export default async function ProductPage({ searchParams }: IPageProps) {
@@ -7,9 +7,13 @@ export default async function ProductPage({ searchParams }: IPageProps) {
     const { products, totalProduct, categories } = await getDataProductPage(searchParams as IProductFilterProps);
 
     return (
-      <main className="overflow-hidden common-background">
-        <Product products={products} categories={categories} totalProduct={totalProduct} />
-      </main>
+      <section>
+        <NavBar />
+        <main className="overflow-hidden common-background">
+          <Product products={products} categories={categories} totalProduct={totalProduct} />
+        </main>
+        <Footer />
+      </section>
     );
   } catch (error) {
     return (

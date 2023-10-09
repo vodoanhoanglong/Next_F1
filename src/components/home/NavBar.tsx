@@ -4,12 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import { InputAdornment, TextField } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { NavBarKey, NavBarLabel, NavBarLink } from ".";
 
 export default function NavBar() {
-  const [value, setValue] = React.useState(0);
-
   return (
     <header className="navbar max-w-full h-20 flex justify-around items-center bg-white">
       <Link href={NavBarLink[NavBarKey.Home]}>

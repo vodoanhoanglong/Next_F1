@@ -4,7 +4,6 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
-import { Footer, NavBar } from "../components";
 import "../styles/globals.scss";
 
 export const revalidate = 0;
@@ -17,11 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className="relative">
-        <NavBar />
-        {children}
-        <Footer />
-      </body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
