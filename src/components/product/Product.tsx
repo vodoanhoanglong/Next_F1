@@ -19,7 +19,15 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Breadcrumb, Card, CategoryBanner, ICategoryData, IProductData, NavBarKey, NavBarLink } from "../../components";
+import {
+  Breadcrumb,
+  Card,
+  CategoryBanner,
+  ICategoryData,
+  IProductProps,
+  NavBarKey,
+  NavBarLink,
+} from "../../components";
 import {
   KeyProductFilter,
   KeyProductSort,
@@ -29,12 +37,6 @@ import {
   productLimit,
   updateSearchParams,
 } from "../../shared";
-
-interface IProductProps {
-  totalProduct: number;
-  products: IProductData[];
-  categories: ICategoryData[];
-}
 
 export default function Product({ products, categories, totalProduct }: IProductProps) {
   const sortPrefix = "Sắp xếp theo:";

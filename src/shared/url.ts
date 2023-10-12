@@ -18,7 +18,7 @@ export interface ISortingProps {
 
 export interface IProductFilterProps extends IPaginationProps, ISortingProps {
   search?: string;
-  category?: string;
+  category?: string | string[];
 }
 
 export interface IProductDetailFilterProps extends IPaginationProps {
@@ -59,6 +59,16 @@ export enum KeyProductSort {
   CreatedAt = "createdAt",
   Price = "price",
 }
+
+export enum LocalStorage {
+  Token = "token",
+  RefreshToken = "refresh_token",
+}
+
+export const AdminRoute = {
+  Product: "/admin/product",
+  Category: "/admin/category",
+};
 
 export const getSearchParams = (type: string) => {
   const searchParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");

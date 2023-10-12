@@ -1,18 +1,15 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { signIn } from "../../apis";
-import { throwSafeError } from "../../shared";
-import { FormValues, IFormKeys } from "./schema";
+import { signIn } from "../../../apis";
+import { throwSafeError } from "../../../shared";
+import { IFormKeys, ISchemaLoginForm } from "./schema";
 
-export default async function submitAction(formData: FormValues) {
+export default async function submitAction(formData: ISchemaLoginForm) {
   try {
     const result = await signIn({
       email: formData[IFormKeys.Email],
       password: formData[IFormKeys.Password],
     });
-
-    revalidatePath("/");
 
     return {
       isSuccess: true,
@@ -24,8 +21,8 @@ export default async function submitAction(formData: FormValues) {
     return {
       isSuccess: false,
       message: throwSafeError(error).message,
-      token: null,
-      refreshToken: null,
+      token: "",
+      refreshToken: "",
     };
   }
 }

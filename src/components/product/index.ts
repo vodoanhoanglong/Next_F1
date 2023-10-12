@@ -6,6 +6,10 @@ import Product from "./Product";
 import ProductDetail from "./ProductDetail";
 import RelationProduct from "./RelationProduct";
 
+interface ProductMetadata {
+  icon: string;
+}
+
 export interface IProductData {
   id: string;
   code: string;
@@ -15,6 +19,7 @@ export interface IProductData {
   images: string[];
   price: number;
   category: ICategoryData;
+  metadata: ProductMetadata;
 }
 
 export interface ICategoryData {
@@ -26,6 +31,10 @@ export interface ICategoryData {
   icon: string;
 }
 
-export * from "./Product";
+export interface IProductProps {
+  totalProduct: number;
+  products: IProductData[];
+  categories: ICategoryData[];
+}
 
 export { Breadcrumb, Card, CategoryBanner, DynamicContent, Product, ProductDetail, RelationProduct };

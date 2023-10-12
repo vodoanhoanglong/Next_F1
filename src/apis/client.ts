@@ -1,6 +1,7 @@
 import { ApolloClient, DefaultOptions, HttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
+import { LocalStorage } from "../shared";
 
 const serverUrl = process.env.API_ENDPOINT;
 const guestToken = process.env.GUST_TOKEN;
@@ -12,7 +13,7 @@ const graphqlUrl = new HttpLink({
 const authLink = setContext((_, { headers }) => ({
   headers: {
     ...headers,
-    authorization: typeof window !== "undefined" ? `${localStorage.getItem("token")}` : guestToken,
+    authorization: typeof window !== "undefined" ? `${localStorage.getItem(LocalStorage.Token)}` : guestToken,
   },
 }));
 

@@ -23,14 +23,14 @@ const mutationSignIn = gql`
 
 export const signIn = async (data: IPayloadAuthentication): Promise<IResponseAuthentication> => {
   try {
-    const response = await getClient().mutate<IResponseAuthentication>({
+    const response = await getClient().mutate<Record<string, IResponseAuthentication>>({
       mutation: mutationSignIn,
       variables: {
         form: data,
       },
     });
 
-    return response.data as IResponseAuthentication;
+    return response.data?.["signIn"] as IResponseAuthentication;
   } catch (error) {
     return Promise.reject(error);
   }
