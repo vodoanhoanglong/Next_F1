@@ -3,7 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 import { LocalStorage } from "../shared";
 
-const serverUrl = "http://data.thchemical.api/v1/graphql";
+const serverUrl = process.env.API_ENDPOINT;
 const guestToken = process.env.GUST_TOKEN;
 
 const graphqlUrl = new HttpLink({
