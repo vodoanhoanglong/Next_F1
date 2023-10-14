@@ -173,7 +173,7 @@ export default function AddProduct({
 
             <Select
               className="col-span-2"
-              {...register(IFormKeys.BranchId)}
+              {...register(IFormKeys.BrandId)}
               label={`Thương hiệu`}
               placeholder="Chọn thương hiệu"
             >

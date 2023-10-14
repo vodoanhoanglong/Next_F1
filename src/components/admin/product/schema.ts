@@ -8,7 +8,7 @@ export enum IFormKeys {
   Price = "price",
   Images = "images",
   HtmlContent = "htmlContent",
-  BranchId = "branchId",
+  BrandId = "brandId",
 }
 
 export enum ErrorValues {
@@ -30,7 +30,7 @@ export const SchemaSubmitProductForm = z.object({
   [IFormKeys.Price]: z.number().min(1, ErrorValues.RequiredPrice),
   [IFormKeys.Images]: z.array(z.string()).min(1, ErrorValues.RequiredImage),
   [IFormKeys.HtmlContent]: z.string().min(1, ErrorValues.RequiredDetailContent),
-  [IFormKeys.BranchId]: z.string().min(1, ErrorValues.RequiredBrand),
+  [IFormKeys.BrandId]: z.string().min(1, ErrorValues.RequiredBrand),
 });
 
 export const SchemaOptionalProductForm = z.object({
@@ -41,7 +41,7 @@ export const SchemaOptionalProductForm = z.object({
   [IFormKeys.Price]: z.string().optional(),
   [IFormKeys.Images]: z.string().optional(),
   [IFormKeys.HtmlContent]: z.string().optional(),
-  [IFormKeys.BranchId]: z.string().optional(),
+  [IFormKeys.BrandId]: z.string().optional(),
 });
 
 export type ISchemaSubmitProductForm = z.infer<typeof SchemaSubmitProductForm>;
