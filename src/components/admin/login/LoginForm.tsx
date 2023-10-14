@@ -5,15 +5,34 @@ import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AdminRoute, LocalStorage } from "../../../shared";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  AdminRoute,
+  AuthorizationCode,
+  AuthorizationMessage,
+  KeyAdminLogin,
+  LocalStorage,
+  deleteSearchParams,
+  getSearchParams,
+} from "../../../shared";
 import submitAction from "./action";
 import { IFormKeys, ISchemaLoginForm, SchemaLoginForm } from "./schema";
 
 export default function LoginForm() {
   const [errorMsg, setErrorMsg] = React.useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const code = getSearchParams(KeyAdminLogin.Code);
+    if (code) {
+      toast.error(AuthorizationMessage[AuthorizationCode.AccessDenied]);
+      localStorage.removeItem(LocalStorage.Token);
+      localStorage.removeItem(LocalStorage.RefreshToken);
+      deleteSearchParams(KeyAdminLogin.Code);
+    }
+  }, []);
 
   const {
     register,
@@ -48,47 +67,61 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Snackbar
-        open={!!errorMsg}
-        autoHideDuration={5000}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        onClose={(e) => setErrorMsg("")}
-        style={{
-          position: "absolute",
-          top: "-15vh",
-        }}
-      >
-        <Alert
-          severity="error"
+    <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <form onSubmit={handleSubmit(onSubmit)} className="login__form">
+        <Snackbar
+          open={!!errorMsg}
+          autoHideDuration={5000}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          onClose={(e) => setErrorMsg("")}
           style={{
-            textTransform: "uppercase",
-            fontWeight: "700",
-            width: "300px",
-            background: "red",
+            position: "absolute",
+            top: "-15vh",
           }}
         >
-          {errorMsg}
-        </Alert>
-      </Snackbar>
-      <Image
-        src="/logo.png"
-        alt="logo"
-        priority
-        quality={100}
-        width="400"
-        height="0"
-        sizes="100vw"
-        className="object-cover"
-      />
-      <label>Email</label>
-      <input type="email" required placeholder="Email của bạn" {...register(IFormKeys.Email)} />
-      <label>Mật Khẩu</label>
-      <input type="password" required placeholder="Mật khẩu của bạn" {...register(IFormKeys.Password)} />
-      <button disabled={isSubmitting}>Đăng Nhập</button>
-    </form>
+          <Alert
+            severity="error"
+            style={{
+              textTransform: "uppercase",
+              fontWeight: "700",
+              width: "300px",
+              background: "red",
+            }}
+          >
+            {errorMsg}
+          </Alert>
+        </Snackbar>
+        <Image
+          src="/logo.png"
+          alt="logo"
+          priority
+          quality={100}
+          width="400"
+          height="0"
+          sizes="100vw"
+          className="object-cover"
+        />
+        <label>Email</label>
+        <input type="email" required placeholder="Email của bạn" {...register(IFormKeys.Email)} />
+        <label>Mật Khẩu</label>
+        <input type="password" required placeholder="Mật khẩu của bạn" {...register(IFormKeys.Password)} />
+        <button disabled={isSubmitting}>Đăng Nhập</button>
+      </form>
+    </>
   );
 }

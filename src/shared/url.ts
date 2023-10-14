@@ -55,6 +55,10 @@ export const KeyProductFilter = {
   Category: "category",
 };
 
+export const KeyAdminLogin = {
+  Code: "code",
+};
+
 export enum KeyProductSort {
   CreatedAt = "createdAt",
   Price = "price",
@@ -66,6 +70,7 @@ export enum LocalStorage {
 }
 
 export const AdminRoute = {
+  Login: "/admin/login",
   Product: "/admin/product",
   Category: "/admin/category",
 };

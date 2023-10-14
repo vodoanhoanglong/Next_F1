@@ -42,7 +42,7 @@ export default function TableCustom<T extends { id: string }>({
 }) {
   const totalPages = total ? Math.ceil(total / productLimit) : 0;
 
-  return total ? (
+  return (
     <Table
       aria-label="Example table with custom cells"
       isStriped
@@ -91,9 +91,5 @@ export default function TableCustom<T extends { id: string }>({
         </TableBody>
       )}
     </Table>
-  ) : (
-    <div className="w-full flex justify-center mt-[50px]">
-      <h1>Khong co ket qua</h1>
-    </div>
   );
 }

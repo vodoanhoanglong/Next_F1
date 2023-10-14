@@ -3,19 +3,22 @@ import { setContext } from "@apollo/client/link/context";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 import { LocalStorage } from "../shared";
 
-const serverUrl = process.env.API_ENDPOINT;
+const serverUrl = "http://data.thchemical.api/v1/graphql";
 const guestToken = process.env.GUST_TOKEN;
 
 const graphqlUrl = new HttpLink({
   uri: serverUrl,
 });
 
-const authLink = setContext((_, { headers }) => ({
-  headers: {
-    ...headers,
-    authorization: typeof window !== "undefined" ? `${localStorage.getItem(LocalStorage.Token)}` : guestToken,
-  },
-}));
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization:
+        typeof window !== "undefined" ? `${localStorage.getItem(LocalStorage.Token) || guestToken}` : guestToken,
+    },
+  };
+});
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {

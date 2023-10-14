@@ -9,6 +9,7 @@ export enum IMasterDataType {
   Slider = "slider",
   Partner = "partner",
   Introduction = "introduction",
+  Brand = "brand",
 }
 
 export interface IMasterData {

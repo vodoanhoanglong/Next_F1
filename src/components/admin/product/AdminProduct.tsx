@@ -1,12 +1,14 @@
 "use client";
 
-import { Avatar, Chip, Input, Select, SelectItem, SelectedItems, User } from "@nextui-org/react";
+import { Avatar, Button, Chip, Input, Select, SelectItem, SelectedItems, User, useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { ICategoryData, IProductData } from "../..";
+import { VscAdd } from "react-icons/vsc";
+import { ICategoryData, IMasterData, IProductData } from "../..";
 import { SortOrder, convertCurrencyToVND } from "../../../shared";
 import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaParam } from "../table";
-import getDataProductAction from "./action";
+import AddProduct from "./AddProduct";
+import { getDataProductAction } from "./action";
 
 const ProductTableHeader: TableCommonHeader[] = [
   { label: "Tên - Mã sản phẩm", key: "name" },
@@ -44,21 +46,27 @@ export const ProductTableCustom = {
   actions: (param) => <TableAction />,
 } as TableSchemaParam<IProductData>;
 
+interface IData {
+  products: IProductData[];
+  totalProduct: number;
+  categories: ICategoryData[];
+  brand: IMasterData[];
+}
+
 export default function AdminProduct() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
   const [changeFilter, setChangeFilter] = React.useState(new Set([""]));
   const [submitFilter, setSubmitFilter] = React.useState<string[]>([]);
   const [search, setSearch] = React.useState("");
 
-  const [data, setData] = React.useState<{
-    products: IProductData[];
-    totalProduct: number;
-    categories: ICategoryData[];
-  }>({
+  const [data, setData] = React.useState<IData>({
     products: [],
     totalProduct: 0,
     categories: [],
+    brand: [],
   });
 
   useEffect(() => {
@@ -83,75 +91,94 @@ export default function AdminProduct() {
 
   return (
     <div className="admin__product">
-      <div className="admin__product-filter">
-        <Select
-          selectionMode="multiple"
-          placeholder="Chọn danh mục"
-          items={data.categories}
-          isMultiline
-          onChange={handleSelectionChange}
-          onClose={() => setSubmitFilter([...changeFilter.keys()].filter((item) => item))}
-          classNames={{
-            base: "max-w-xs",
-            trigger: "min-h-unit-12 py-2",
-          }}
-          renderValue={(items: SelectedItems<ICategoryData>) => (
-            <div className="flex flex-wrap gap-2">
-              {items.map((item) => (
-                <Chip
-                  key={item.key}
-                  startContent={<Image src={item.data?.icon as string} quality={75} width="18" height="0" alt="icon" />}
-                >
-                  {item.data?.name}
-                </Chip>
-              ))}
-            </div>
-          )}
-        >
-          {(category) => (
-            <SelectItem key={category.code} value={category.code} textValue={category.name}>
-              <div className="flex gap-2 items-center">
-                <Avatar alt={category.icon} className="flex-shrink-0" size="sm" src={category.icon} />
-                <span className="text-medium">{category.name}</span>
+      <div className="admin__product-action">
+        <div className="admin__product-action__filter">
+          <Select
+            selectionMode="multiple"
+            placeholder="Chọn danh mục"
+            items={data.categories}
+            isMultiline
+            onChange={handleSelectionChange}
+            onClose={() => setSubmitFilter([...changeFilter.keys()].filter((item) => item))}
+            classNames={{
+              base: "max-w-xs",
+              trigger: "min-h-unit-12 py-2",
+            }}
+            renderValue={(items: SelectedItems<ICategoryData>) => (
+              <div className="flex flex-wrap gap-2">
+                {items.map((item) => (
+                  <Chip
+                    key={item.key}
+                    startContent={
+                      <Image src={item.data?.icon as string} quality={75} width="18" height="0" alt="icon" />
+                    }
+                  >
+                    {item.data?.name}
+                  </Chip>
+                ))}
               </div>
-            </SelectItem>
-          )}
-        </Select>
-        <Input
-          isClearable
-          onKeyDown={(e) => e.key === "Enter" && setSearch(searchValue)}
-          onChange={(e) => {
-            searchValue = e.target.value;
-          }}
-          radius="md"
-          classNames={{
-            base: ["w-[300px]"],
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "h-[48px]",
-              "bg-default-200/50",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focused=true]:bg-default-200/50",
-              "dark:group-data-[focused=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }}
-          placeholder="Tìm kiếm..."
-          startContent={
-            <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-          }
-        />
+            )}
+          >
+            {(category) => (
+              <SelectItem key={category.code} value={category.code} textValue={category.name}>
+                <div className="flex gap-2 items-center">
+                  <Avatar alt={category.icon} className="flex-shrink-0" size="sm" src={category.icon} />
+                  <span className="text-medium">{category.name}</span>
+                </div>
+              </SelectItem>
+            )}
+          </Select>
+          <Input
+            isClearable
+            onKeyDown={(e) => e.key === "Enter" && setSearch(searchValue)}
+            onChange={(e) => {
+              searchValue = e.target.value;
+            }}
+            radius="md"
+            classNames={{
+              base: ["w-[600px]"],
+              label: "text-black/50 dark:text-white/90",
+              input: [
+                "bg-transparent",
+                "text-black/90 dark:text-white/90",
+                "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+              ],
+              innerWrapper: "bg-transparent",
+              inputWrapper: [
+                "h-[48px]",
+                "bg-default-200/50",
+                "dark:bg-default/60",
+                "backdrop-blur-xl",
+                "backdrop-saturate-200",
+                "hover:bg-default-200/70",
+                "dark:hover:bg-default/70",
+                "group-data-[focused=true]:bg-default-200/50",
+                "dark:group-data-[focused=true]:bg-default/60",
+                "!cursor-text",
+              ],
+            }}
+            placeholder="Tìm kiếm..."
+            startContent={
+              <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+            }
+          />
+        </div>
+        <div className="admin__product-action__add">
+          <Button
+            color="secondary"
+            endContent={
+              <div className="font-extrabold text-large">
+                <VscAdd />
+              </div>
+            }
+            onPress={(e) => onOpen()}
+          >
+            Thêm mới
+          </Button>
+          <AddProduct isOpen={isOpen} onClose={onClose} categories={data.categories} brand={data.brand} />
+        </div>
       </div>
+
       <div className="admin__product-table">
         <TableCustom
           page={page}

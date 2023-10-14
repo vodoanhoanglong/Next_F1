@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "react-quill/dist/quill.snow.css";
+import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";

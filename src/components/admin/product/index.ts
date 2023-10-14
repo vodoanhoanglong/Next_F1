@@ -1,3 +1,5 @@
 import AdminProduct from "./AdminProduct";
+import IconStyle from "./IconStyle";
 
-export { AdminProduct };
+export * from "./schema";
+export { AdminProduct, IconStyle };
