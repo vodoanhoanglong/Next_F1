@@ -2,9 +2,10 @@
 
 import { Avatar, Button, Chip, Input, Select, SelectItem, SelectedItems, User, useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { VscAdd } from "react-icons/vsc";
 import { ICategoryData, IMasterData, IProductData } from "../..";
+import { AuthContext } from "../../../contexts";
 import { SortOrder, convertCurrencyToVND } from "../../../shared";
 import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaParam } from "../table";
 import AddProduct from "./AddProduct";
@@ -55,12 +56,14 @@ interface IData {
 
 export default function AdminProduct() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { localStorageValue } = useContext(AuthContext);
 
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
   const [changeFilter, setChangeFilter] = React.useState(new Set([""]));
   const [submitFilter, setSubmitFilter] = React.useState<string[]>([]);
   const [search, setSearch] = React.useState("");
+  const [reFetch, setRefetch] = React.useState(0);
 
   const [data, setData] = React.useState<IData>({
     products: [],
@@ -78,11 +81,12 @@ export default function AdminProduct() {
       sortBy: "createdAt",
       category: submitFilter,
       search,
+      ...localStorageValue,
     }).then((res) => {
       setData(res);
       setLoading(false);
     });
-  }, [page, submitFilter, search]);
+  }, [page, submitFilter, search, reFetch]);
 
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setChangeFilter(new Set(e.target.value.split(",")));
@@ -175,7 +179,13 @@ export default function AdminProduct() {
           >
             Thêm mới
           </Button>
-          <AddProduct isOpen={isOpen} onClose={onClose} categories={data.categories} brand={data.brand} />
+          <AddProduct
+            setReFetch={setRefetch}
+            isOpen={isOpen}
+            onClose={onClose}
+            categories={data.categories}
+            brand={data.brand}
+          />
         </div>
       </div>
 

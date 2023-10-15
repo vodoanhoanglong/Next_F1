@@ -11,12 +11,17 @@ export const enum SortOrder {
   Descending = "desc",
 }
 
+export interface IAuthProps {
+  [LocalStorage.Token]?: string;
+  [LocalStorage.RefreshToken]?: string;
+}
+
 export interface ISortingProps {
   sortBy: string;
   sortOrder: SortOrder;
 }
 
-export interface IProductFilterProps extends IPaginationProps, ISortingProps {
+export interface IProductFilterProps extends IPaginationProps, ISortingProps, IAuthProps {
   search?: string;
   category?: string | string[];
 }
@@ -74,6 +79,8 @@ export const AdminRoute = {
   Product: "/admin/product",
   Category: "/admin/category",
 };
+
+export const guestToken = process.env.NEXT_PUBLIC_GUST_TOKEN as string;
 
 export const getSearchParams = (type: string) => {
   const searchParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");

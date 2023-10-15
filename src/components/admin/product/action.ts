@@ -4,8 +4,15 @@ import { revalidatePath } from "next/cache";
 import { RedirectType } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import { addProduct, getDataProductAdminPage } from "../../../apis";
-import { AdminRoute, AuthorizationCode, IProductFilterProps, throwSafeError } from "../../../shared";
-import { ISchemaSubmitProductForm } from "./schema";
+import {
+  AdminRoute,
+  AuthorizationCode,
+  IProductFilterProps,
+  PathNameFirebase,
+  throwSafeError,
+  uploadFirebase,
+} from "../../../shared";
+import { IFormKeys, ISchemaSubmitProductForm } from "./schema";
 
 export async function getDataProductAction(filter: IProductFilterProps) {
   try {
@@ -23,10 +30,16 @@ export async function getDataProductAction(filter: IProductFilterProps) {
   }
 }
 
-export async function submitProductAction(payload: ISchemaSubmitProductForm) {
+export async function submitProductAction(payload: ISchemaSubmitProductForm, token: string) {
   try {
-    const response = await addProduct(payload);
+    const urls = await uploadFirebase(
+      `${PathNameFirebase.Product}/${payload[IFormKeys.Code]}`,
+      payload[IFormKeys.Images],
+    );
 
+    payload[IFormKeys.Images] = urls;
+
+    const response = await addProduct(payload, token);
     revalidatePath("/");
 
     return response.id;

@@ -1,4 +1,4 @@
-import { yup } from "../../shared";
+import { z } from "zod";
 
 export enum IFormKeys {
   FullName = "fullName",
@@ -23,11 +23,11 @@ export enum ErrorValues {
   InvalidPhoneNumber = "SĐT không hợp lệ",
 }
 
-export const SchemaContactForm = yup.object().shape({
-  [IFormKeys.Email]: yup.string().required(ErrorValues.RequiredEmail).email(ErrorValues.InvalidEmail),
-  [IFormKeys.FullName]: yup.string().required(ErrorValues.RequiredFullName),
-  [IFormKeys.PhoneNumber]: (yup.string().required(ErrorValues.RequiredPhoneNumber) as any).phoneNumber(
-    ErrorValues.InvalidPhoneNumber,
-  ),
-  [IFormKeys.Message]: yup.string().required(ErrorValues.RequiredMessage),
+export const SchemaContactForm = z.object({
+  [IFormKeys.Email]: z.string().min(1, ErrorValues.RequiredEmail).email(ErrorValues.InvalidEmail),
+  [IFormKeys.FullName]: z.string().min(1, ErrorValues.RequiredFullName),
+  [IFormKeys.PhoneNumber]: z.string().min(1, ErrorValues.RequiredPhoneNumber),
+  [IFormKeys.Message]: z.string().min(1, ErrorValues.RequiredMessage),
 });
+
+export type ISchemaContactForm = z.infer<typeof SchemaContactForm>;

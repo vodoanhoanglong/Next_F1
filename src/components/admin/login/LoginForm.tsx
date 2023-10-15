@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
+import { AuthContext } from "../../../contexts";
 import {
   AdminRoute,
   AuthorizationCode,
@@ -23,6 +24,7 @@ import { IFormKeys, ISchemaLoginForm, SchemaLoginForm } from "./schema";
 export default function LoginForm() {
   const [errorMsg, setErrorMsg] = React.useState("");
   const router = useRouter();
+  const { setLocalStorageValue } = React.useContext(AuthContext);
 
   useEffect(() => {
     const code = getSearchParams(KeyAdminLogin.Code);
@@ -58,11 +60,11 @@ export default function LoginForm() {
       reset();
       setErrorMsg(result.message);
     } else {
-      if (window) {
-        localStorage.setItem(LocalStorage.Token, result.token);
-        localStorage.setItem(LocalStorage.RefreshToken, result.refreshToken);
-        router.push(AdminRoute.Product);
-      }
+      setLocalStorageValue({
+        [LocalStorage.Token]: result.token,
+        [LocalStorage.RefreshToken]: result.refreshToken,
+      });
+      router.push(AdminRoute.Product);
     }
   };
 

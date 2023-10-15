@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import { ApolloError } from "@apollo/client/errors";
 import { ICategoryData, IMasterData, IProductData, ISchemaSubmitProductForm } from "../../components";
-import { AuthorizationCode, IProductFilterProps, productLimit } from "../../shared";
-import { getClient } from "../client";
+import { AuthorizationCode, ErrorMessage, ErrorType, IProductFilterProps, productLimit } from "../../shared";
+import { wrapperApolloClient } from "../client";
 
 const queryProductPage = gql`
   query getProductPage($productFilter: products_bool_exp!, $limit: Int!, $offset: Int!, $order: [products_order_by!]) {
@@ -51,7 +51,14 @@ const mutateAddProduct = gql`
   }
 `;
 
-export const getDataProductAdminPage = async ({ page, sortBy, sortOrder, category, search }: IProductFilterProps) => {
+export const getDataProductAdminPage = async ({
+  page,
+  sortBy,
+  sortOrder,
+  category,
+  search,
+  token,
+}: IProductFilterProps) => {
   try {
     const productFilter = {
       ...(category?.length
@@ -81,7 +88,7 @@ export const getDataProductAdminPage = async ({ page, sortBy, sortOrder, categor
         : null),
     };
 
-    const result = await getClient().query({
+    const result = await wrapperApolloClient(token as string).query({
       query: queryProductPage,
       variables: {
         productFilter,
@@ -113,20 +120,25 @@ export const getDataProductAdminPage = async ({ page, sortBy, sortOrder, categor
   }
 };
 
-export const addProduct = async (payload: ISchemaSubmitProductForm) => {
+export const addProduct = async (payload: ISchemaSubmitProductForm, token: string) => {
   try {
-    const result = await getClient().mutate<Record<"insert_contacts_one", IProductData>>({
+    const result = await wrapperApolloClient(token).mutate<Record<"insert_products_one", IProductData>>({
       mutation: mutateAddProduct,
       variables: {
         object: payload,
       },
     });
 
-    return result.data?.insert_contacts_one as IProductData;
+    return result.data?.insert_products_one as IProductData;
   } catch (error) {
     const graphQl = error as ApolloError;
-    if (graphQl.graphQLErrors.length && graphQl.graphQLErrors[0].extensions?.code === AuthorizationCode.AccessDenied)
-      return Promise.reject(AuthorizationCode.AccessDenied);
+    if (graphQl.graphQLErrors.length) {
+      if (graphQl.graphQLErrors[0].extensions?.code === AuthorizationCode.AccessDenied)
+        return Promise.reject(AuthorizationCode.AccessDenied);
+
+      if (ErrorMessage[graphQl.graphQLErrors[0].message as ErrorType])
+        return Promise.reject(ErrorMessage[graphQl.graphQLErrors[0].message as ErrorType]);
+    }
 
     return Promise.reject(error);
   }

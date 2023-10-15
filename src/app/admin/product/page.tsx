@@ -1,10 +1,12 @@
 import { AdminProduct, MenuBar } from "../../../components";
-import { IPageProps } from "../../../shared";
+import { AuthContextProvider } from "../../../contexts";
 
-export default async function AdminProductPage({ searchParams }: IPageProps) {
+export default async function AdminProductPage() {
   return (
-    <MenuBar>
-      <AdminProduct />
-    </MenuBar>
+    <AuthContextProvider>
+      <MenuBar>
+        <AdminProduct />
+      </MenuBar>
+    </AuthContextProvider>
   );
 }

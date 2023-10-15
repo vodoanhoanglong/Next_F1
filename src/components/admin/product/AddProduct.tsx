@@ -14,14 +14,15 @@ import {
   SelectedItems,
 } from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr";
 import ReactQuill from "react-quill";
 import { ToastContainer, toast } from "react-toastify";
 import { IconStyle, ModalCustom } from "..";
 import { ICategoryData, IMasterData } from "../..";
-import { EditorFormat, EditorModule, numberWithCharacter, throwSafeError } from "../../../shared";
+import { AuthContext } from "../../../contexts";
+import { EditorFormat, EditorModule, LocalStorage, numberWithCharacter, throwSafeError } from "../../../shared";
 import { submitProductAction } from "./action";
 import { IFormKeys, ISchemaSubmitProductForm, SchemaOptionalProductForm, SchemaSubmitProductForm } from "./schema";
 
@@ -58,11 +59,13 @@ export default function AddProduct({
   onClose,
   categories,
   brand,
+  setReFetch,
 }: {
   isOpen: boolean;
   onClose: () => void;
   categories: ICategoryData[];
   brand: IMasterData[];
+  setReFetch: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [images, setImages] = React.useState<string[]>([IconDefault]);
   const [detailContent, setDetailContent] = React.useState<{ html: string; length: number }>({
@@ -70,6 +73,8 @@ export default function AddProduct({
     length: 0,
   });
   const [price, setPrice] = React.useState(0);
+
+  const { localStorageValue } = useContext(AuthContext);
 
   const {
     register,
@@ -94,12 +99,19 @@ export default function AddProduct({
         if (errors.length) return toast.error(errors[0][0]);
       }
 
-      const res = await submitProductAction(data);
+      const res = await submitProductAction(data, localStorageValue[LocalStorage.Token]);
       if (!res) toast.error("Đã có lỗi xảy ra");
       else toast.success("Tạo sản phẩm thành công");
 
+      setPrice(0);
+      setDetailContent({
+        html: "",
+        length: 0,
+      });
       reset();
-      return onClose();
+      setImages([IconDefault]);
+      onClose();
+      return setReFetch((oldValue) => ++oldValue);
     } catch (error) {
       toast.error(throwSafeError(error).message);
     }
@@ -122,6 +134,12 @@ export default function AddProduct({
       <ModalCustom
         isOpen={isOpen}
         onClose={() => {
+          setPrice(0);
+          setDetailContent({
+            html: "",
+            length: 0,
+          });
+          reset();
           setImages([IconDefault]);
           return onClose();
         }}

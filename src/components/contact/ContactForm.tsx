@@ -1,11 +1,11 @@
 "use client";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import React from "react";
-import { Resolver, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import submitAction from "./action";
-import { FormValues, IFormKeys, SchemaContactForm } from "./schema";
+import { IFormKeys, ISchemaContactForm, SchemaContactForm } from "./schema";
 
 export default function ContactForm() {
   const [open, setOpen] = React.useState(false);
@@ -15,12 +15,12 @@ export default function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<ISchemaContactForm>({
     mode: "onChange",
-    resolver: yupResolver(SchemaContactForm) as Resolver<FormValues, any>,
+    resolver: zodResolver(SchemaContactForm),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<ISchemaContactForm> = async (data) => {
     await submitAction(data);
 
     setOpen(true);
