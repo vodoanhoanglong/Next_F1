@@ -9,11 +9,14 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import React from "react";
+import { IProductData } from "../..";
 import { productLimit } from "../../../shared";
 
 export type TableCommonParam<T> = {
   data: T;
   columnKey: keyof T;
+  onOpen: () => void;
+  setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
 };
 
 export type TableSchemaParam<T> = Record<keyof T | "actions", (param: TableCommonParam<T>) => React.JSX.Element>;
@@ -27,15 +30,19 @@ export default function TableCustom<T extends { id: string }>({
   data,
   total,
   page,
-  setPage,
   tableCustom,
   headers,
   isLoading,
+  setPage,
+  setActionData,
+  onOpen,
 }: {
   data: T[];
   total: number;
   page: number;
+  onOpen: () => void;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
   tableCustom: TableSchemaParam<T>;
   headers: TableCommonHeader[];
   isLoading: boolean;
@@ -83,7 +90,12 @@ export default function TableCustom<T extends { id: string }>({
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>
-                  {tableCustom[columnKey as keyof T]({ data: item, columnKey: columnKey as keyof T })}
+                  {tableCustom[columnKey as keyof T]({
+                    data: item,
+                    columnKey: columnKey as keyof T,
+                    setActionData,
+                    onOpen,
+                  })}
                 </TableCell>
               )}
             </TableRow>

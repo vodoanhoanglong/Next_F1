@@ -13,6 +13,9 @@ const queryProductPage = gql`
       description
       images
       price
+      categoryId
+      brandId
+      htmlContent
       category {
         name
         code

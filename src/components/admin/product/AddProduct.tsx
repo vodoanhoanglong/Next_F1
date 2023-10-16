@@ -20,7 +20,7 @@ import { GrClose } from "react-icons/gr";
 import ReactQuill from "react-quill";
 import { ToastContainer, toast } from "react-toastify";
 import { IconStyle, ModalCustom } from "..";
-import { ICategoryData, IMasterData } from "../..";
+import { ICategoryData, IMasterData, IProductData } from "../..";
 import { AuthContext } from "../../../contexts";
 import { EditorFormat, EditorModule, LocalStorage, numberWithCharacter, throwSafeError } from "../../../shared";
 import { submitProductAction } from "./action";
@@ -56,9 +56,10 @@ const IconDefaultObject = {
 
 export default function AddProduct({
   isOpen,
-  onClose,
   categories,
   brand,
+  data,
+  onClose,
   setReFetch,
 }: {
   isOpen: boolean;
@@ -66,13 +67,14 @@ export default function AddProduct({
   categories: ICategoryData[];
   brand: IMasterData[];
   setReFetch: React.Dispatch<React.SetStateAction<number>>;
+  data: IProductData;
 }) {
-  const [images, setImages] = React.useState<string[]>([IconDefault]);
+  const [images, setImages] = React.useState<string[]>([...data.images, IconDefault]);
   const [detailContent, setDetailContent] = React.useState<{ html: string; length: number }>({
-    html: "",
-    length: 0,
+    html: data.htmlContent,
+    length: data.htmlContent.length,
   });
-  const [price, setPrice] = React.useState(0);
+  const [price, setPrice] = React.useState(data.price);
 
   const { localStorageValue } = useContext(AuthContext);
 
@@ -162,6 +164,7 @@ export default function AddProduct({
               className="col-span-2"
               label={`Danh Mục`}
               placeholder="Chọn danh mục"
+              defaultSelectedKeys={data.categoryId}
               items={categories}
               renderValue={(items: SelectedItems<ICategoryData>) => (
                 <div className="flex flex-wrap gap-2">
@@ -191,6 +194,7 @@ export default function AddProduct({
 
             <Select
               className="col-span-2"
+              defaultSelectedKeys={data.brandId}
               {...register(IFormKeys.BrandId)}
               label={`Thương hiệu`}
               placeholder="Chọn thương hiệu"
@@ -208,6 +212,7 @@ export default function AddProduct({
               isClearable
               radius="md"
               classNames={InputCommonStyle}
+              value={data.name}
               label="Tên sản phẩm"
             />
 
@@ -217,6 +222,7 @@ export default function AddProduct({
               isClearable
               radius="md"
               classNames={InputCommonStyle}
+              value={data.code}
               label="Mã sản phẩm"
             />
 
@@ -238,6 +244,7 @@ export default function AddProduct({
               isClearable
               radius="md"
               classNames={InputCommonStyle}
+              value={data.description}
               label="Mô tả sản phẩm"
             />
 

@@ -44,7 +44,7 @@ export const ProductTableCustom = {
       {param.data.category.name}
     </Chip>
   ),
-  actions: (param) => <TableAction />,
+  actions: (param) => <TableAction {...param} />,
 } as TableSchemaParam<IProductData>;
 
 interface IData {
@@ -53,6 +53,18 @@ interface IData {
   categories: ICategoryData[];
   brand: IMasterData[];
 }
+
+const initialValue = {
+  id: "",
+  name: "",
+  code: "",
+  price: 0,
+  brandId: "",
+  categoryId: "",
+  description: "",
+  htmlContent: "",
+  images: [],
+} as unknown as IProductData;
 
 export default function AdminProduct() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -64,6 +76,7 @@ export default function AdminProduct() {
   const [submitFilter, setSubmitFilter] = React.useState<string[]>([]);
   const [search, setSearch] = React.useState("");
   const [reFetch, setRefetch] = React.useState(0);
+  const [actionData, setActionData] = React.useState<IProductData>(initialValue);
 
   const [data, setData] = React.useState<IData>({
     products: [],
@@ -180,6 +193,7 @@ export default function AdminProduct() {
             Thêm mới
           </Button>
           <AddProduct
+            data={actionData}
             setReFetch={setRefetch}
             isOpen={isOpen}
             onClose={onClose}
@@ -191,8 +205,10 @@ export default function AdminProduct() {
 
       <div className="admin__product-table">
         <TableCustom
+          onOpen={onOpen}
           page={page}
           setPage={setPage}
+          setActionData={setActionData}
           data={data.products}
           total={data.totalProduct}
           tableCustom={ProductTableCustom}

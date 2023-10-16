@@ -19,6 +19,8 @@ export interface IProductData {
   images: string[];
   price: number;
   category: ICategoryData;
+  categoryId: string;
+  brandId: string;
   metadata: ProductMetadata;
 }
 
