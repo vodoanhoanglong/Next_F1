@@ -18,6 +18,9 @@ const queryProductDetailPage = gql`
         code
         name
       }
+      brand {
+        data
+      }
     }
 
     relationProducts: products(
@@ -36,6 +39,9 @@ const queryProductDetailPage = gql`
         id
         code
         name
+      }
+      brand {
+        data
       }
     }
 

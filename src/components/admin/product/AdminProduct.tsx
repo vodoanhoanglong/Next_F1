@@ -18,7 +18,9 @@ import Image from "next/image";
 import React from "react";
 import { VscAdd } from "react-icons/vsc";
 import { ToastContainer, toast } from "react-toastify";
-import { ICategoryData, IMasterData, IProductData, ModalCustom } from "../..";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { DynamicContent, ICategoryData, IMasterData, IProductData, ModalCustom } from "../..";
 import { AuthContext } from "../../../contexts";
 import { LocalStorage, SortOrder, StatusCode, convertCurrencyToVND, throwSafeError } from "../../../shared";
 import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaParam } from "../table";
@@ -80,6 +82,8 @@ export const initialValue = {
   description: "",
   htmlContent: "",
   images: [],
+  category: {},
+  brand: {},
 } as unknown as IProductData;
 
 export default function AdminProduct() {
@@ -87,6 +91,8 @@ export default function AdminProduct() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [openDelete, setOpenDelete] = React.useState(false);
+  const [openView, setOpenView] = React.useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
 
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
@@ -109,7 +115,7 @@ export default function AdminProduct() {
     getDataProductAction({
       page,
       sortOrder: SortOrder.Descending,
-      sortBy: "createdAt",
+      sortBy: "updatedAt",
       category: submitFilter,
       search,
       ...localStorageValue,
@@ -262,6 +268,140 @@ export default function AdminProduct() {
         </div>
       </div>
 
+      <div className="admin__product-table">
+        <TableCustom
+          setOpenView={setOpenView}
+          setOpenDelete={setOpenDelete}
+          onOpen={onOpen}
+          page={page}
+          setPage={setPage}
+          setActionData={setActionData}
+          data={data.products}
+          total={data.totalProduct}
+          tableCustom={ProductTableCustom}
+          headers={ProductTableHeader}
+          isLoading={loading}
+        />
+      </div>
+
+      {/* Action view */}
+      <ModalCustom
+        isOpen={openView}
+        onClose={() => {
+          setThumbsSwiper(null);
+          setActionData(initialValue);
+          return setOpenView(false);
+        }}
+      >
+        <ModalHeader>
+          <h1>Chi tiết sản phẩm</h1>
+        </ModalHeader>
+        <ModalBody>
+          <div className="admin__product-detail">
+            <div
+              className="admin__product-detail__slider"
+              style={{
+                height: actionData.images.length === 1 ? "400px" : "600px",
+              }}
+            >
+              <Swiper
+                style={{}}
+                loop={true}
+                spaceBetween={10}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Thumbs]}
+                className={`admin__product-detail__slider-main ${
+                  actionData.images.length === 1 ? "h-full" : "h-[75%]"
+                }`}
+              >
+                {actionData.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <Image
+                      src={image}
+                      alt={`main_${index}`}
+                      priority
+                      quality={100}
+                      width="0"
+                      height="0"
+                      sizes="100vw"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              {actionData.images.length === 1 ? null : (
+                <Swiper
+                  onSwiper={setThumbsSwiper as any}
+                  loop={true}
+                  spaceBetween={10}
+                  slidesPerView={actionData.images.length}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="admin__product-detail__slider-thump"
+                >
+                  {actionData.images.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <Image
+                        src={image}
+                        alt={`thump_${index}`}
+                        priority
+                        quality={100}
+                        width="0"
+                        height="0"
+                        sizes="100vw"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              )}
+            </div>
+            <div className="admin__product-detail__content">
+              <br />
+              <h1>{actionData.name}</h1>
+              <br />
+              <div className="grid grid-cols-2">
+                <div className="pr-3">
+                  <div className="flex justify-between items-center">
+                    <span>- Mã sản phẩm:</span>
+                    <b>{actionData.code}</b>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span>- Thương hiệu:</span>
+                    <b>{actionData.brand.data}</b>
+                  </div>
+                </div>
+                <div className="pl-3">
+                  <div className="flex justify-between items-center">
+                    <span>- Giá:</span>
+                    <b>{convertCurrencyToVND(actionData.price)}</b>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>- Danh mục: </span>
+                    <Chip
+                      className="text-bold text-medium"
+                      startContent={
+                        <Image src={actionData.category.icon} quality={75} width="18" height="0" alt="icon" />
+                      }
+                      color={"secondary"}
+                      size="md"
+                      variant="flat"
+                    >
+                      {actionData.category.name}
+                    </Chip>
+                  </div>
+                </div>
+              </div>
+              <p className="admin__product-detail__content-des">
+                - Mô tả nhanh: <b>{actionData.description}</b>
+              </p>
+              <p>- Mô tả chi tiết:</p>
+              <DynamicContent content={actionData.htmlContent} />
+            </div>
+          </div>
+        </ModalBody>
+      </ModalCustom>
+
       {/* Action confirm deleted */}
       <ModalCustom isOpen={openDelete} onClose={() => closeActon()}>
         <ModalHeader>
@@ -281,21 +421,6 @@ export default function AdminProduct() {
           </Button>
         </ModalFooter>
       </ModalCustom>
-
-      <div className="admin__product-table">
-        <TableCustom
-          setOpenDelete={setOpenDelete}
-          onOpen={onOpen}
-          page={page}
-          setPage={setPage}
-          setActionData={setActionData}
-          data={data.products}
-          total={data.totalProduct}
-          tableCustom={ProductTableCustom}
-          headers={ProductTableHeader}
-          isLoading={loading}
-        />
-      </div>
     </div>
   );
 }

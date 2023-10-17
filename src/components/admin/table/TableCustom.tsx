@@ -16,6 +16,7 @@ export type TableCommonParam<T> = {
   data: T;
   columnKey: keyof T;
   onOpen: () => void;
+  setOpenView: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
 };
@@ -35,6 +36,7 @@ export default function TableCustom<T extends { id: string }>({
   headers,
   isLoading,
   setPage,
+  setOpenView,
   setOpenDelete,
   setActionData,
   onOpen,
@@ -43,6 +45,7 @@ export default function TableCustom<T extends { id: string }>({
   total: number;
   page: number;
   onOpen: () => void;
+  setOpenView: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
@@ -96,6 +99,7 @@ export default function TableCustom<T extends { id: string }>({
                   {tableCustom[columnKey as keyof T]({
                     data: item,
                     columnKey: columnKey as keyof T,
+                    setOpenView,
                     setActionData,
                     setOpenDelete,
                     onOpen,

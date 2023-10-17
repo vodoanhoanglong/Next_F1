@@ -39,7 +39,7 @@ export default function ProductDetail({ product }: IProductDetailProps) {
             onSwiper={setThumbsSwiper as any}
             loop={true}
             spaceBetween={10}
-            slidesPerView={4}
+            slidesPerView={product.images.length}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
@@ -63,7 +63,7 @@ export default function ProductDetail({ product }: IProductDetailProps) {
             Giá: <b>{convertCurrencyToVND(product.price)}</b>
           </p>
           <p>
-            Thương hiệu: <b>Nhật Bản</b>
+            Thương hiệu: <b>{product.brand.data}</b>
           </p>
         </div>
         <h2>Mô tả nhanh:</h2>

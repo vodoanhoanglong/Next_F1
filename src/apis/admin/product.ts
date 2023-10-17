@@ -114,7 +114,7 @@ export const getDataProductAdminPage = async ({
                 [sortBy]: sortOrder,
               }
             : {
-                createdAt: "desc",
+                updatedAt: "desc",
               },
         ],
       },
