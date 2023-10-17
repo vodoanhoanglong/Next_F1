@@ -1,20 +1,35 @@
 "use client";
 
-import { Avatar, Button, Chip, Input, Select, SelectItem, SelectedItems, User, useDisclosure } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Chip,
+  Input,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Select,
+  SelectItem,
+  SelectedItems,
+  User,
+  useDisclosure,
+} from "@nextui-org/react";
 import Image from "next/image";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { VscAdd } from "react-icons/vsc";
-import { ICategoryData, IMasterData, IProductData } from "../..";
+import { ToastContainer, toast } from "react-toastify";
+import { ICategoryData, IMasterData, IProductData, ModalCustom } from "../..";
 import { AuthContext } from "../../../contexts";
-import { SortOrder, convertCurrencyToVND } from "../../../shared";
+import { LocalStorage, SortOrder, StatusCode, convertCurrencyToVND, throwSafeError } from "../../../shared";
 import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaParam } from "../table";
-import AddProduct from "./AddProduct";
-import { getDataProductAction } from "./action";
+import ProductAction from "./ProductAction";
+import { deleteProductAction, getDataProductAction } from "./action";
 
 const ProductTableHeader: TableCommonHeader[] = [
   { label: "Tên - Mã sản phẩm", key: "name" },
   { label: "Giá", key: "price" },
   { label: "Danh mục", key: "category" },
+  { label: "Thương hiệu", key: "brand" },
   { label: "Thao tác", key: "actions" },
 ];
 
@@ -44,6 +59,7 @@ export const ProductTableCustom = {
       {param.data.category.name}
     </Chip>
   ),
+  brand: (param) => <p>{param.data.brand.data}</p>,
   actions: (param) => <TableAction {...param} />,
 } as TableSchemaParam<IProductData>;
 
@@ -54,7 +70,7 @@ interface IData {
   brand: IMasterData[];
 }
 
-const initialValue = {
+export const initialValue = {
   id: "",
   name: "",
   code: "",
@@ -67,8 +83,10 @@ const initialValue = {
 } as unknown as IProductData;
 
 export default function AdminProduct() {
+  const { localStorageValue } = React.useContext(AuthContext);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { localStorageValue } = useContext(AuthContext);
+  const [openDelete, setOpenDelete] = React.useState(false);
 
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
@@ -85,7 +103,7 @@ export default function AdminProduct() {
     brand: [],
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     setLoading(true);
 
     getDataProductAction({
@@ -104,10 +122,47 @@ export default function AdminProduct() {
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setChangeFilter(new Set(e.target.value.split(",")));
 
+  const closeActon = () => {
+    setActionData(initialValue);
+    return setOpenDelete(false);
+  };
+
+  const submitDeleteProduct = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    try {
+      e.preventDefault();
+      const result = await deleteProductAction(
+        { code: `DELETED_${new Date().getTime()}_${actionData.code}`, status: StatusCode.Deleted },
+        actionData.id,
+        localStorageValue[LocalStorage.Token],
+      );
+      if (!result) toast.error("Đã có lỗi xảy ra");
+      else toast.success("Xoá sản phẩm thành công");
+      closeActon();
+
+      return setRefetch((oldValue) => ++oldValue);
+    } catch (error) {
+      toast.error(throwSafeError(error).message);
+
+      return closeActon();
+    }
+  };
+
   let searchValue = "";
 
   return (
     <div className="admin__product">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="admin__product-action">
         <div className="admin__product-action__filter">
           <Select
@@ -188,12 +243,16 @@ export default function AdminProduct() {
                 <VscAdd />
               </div>
             }
-            onPress={(e) => onOpen()}
+            onPress={(e) => {
+              setActionData(initialValue);
+              return onOpen();
+            }}
           >
             Thêm mới
           </Button>
-          <AddProduct
-            data={actionData}
+          <ProductAction
+            actionData={actionData}
+            setActionData={setActionData}
             setReFetch={setRefetch}
             isOpen={isOpen}
             onClose={onClose}
@@ -203,8 +262,29 @@ export default function AdminProduct() {
         </div>
       </div>
 
+      {/* Action confirm deleted */}
+      <ModalCustom isOpen={openDelete} onClose={() => closeActon()}>
+        <ModalHeader>
+          <h1>Xoá sản phẩm</h1>
+        </ModalHeader>
+        <ModalBody>
+          <h2 className="w-full text-center">
+            <b>Bạn có chắc muốn xoá sản phẩm này?</b>
+          </h2>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="default" onClick={(e) => closeActon()}>
+            Huỷ
+          </Button>
+          <Button color="danger" onClick={submitDeleteProduct}>
+            Xoá
+          </Button>
+        </ModalFooter>
+      </ModalCustom>
+
       <div className="admin__product-table">
         <TableCustom
+          setOpenDelete={setOpenDelete}
           onOpen={onOpen}
           page={page}
           setPage={setPage}

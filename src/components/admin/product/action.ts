@@ -3,12 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { RedirectType } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
-import { addProduct, getDataProductAdminPage } from "../../../apis";
+import { addProduct, getDataProductAdminPage, updateProduct } from "../../../apis";
 import {
   AdminRoute,
   AuthorizationCode,
   IProductFilterProps,
   PathNameFirebase,
+  StatusCode,
+  reUploadFirebase,
   throwSafeError,
   uploadFirebase,
 } from "../../../shared";
@@ -32,17 +34,22 @@ export async function getDataProductAction(filter: IProductFilterProps) {
 
 export async function submitProductAction(payload: ISchemaSubmitProductForm, token: string) {
   try {
-    const urls = await uploadFirebase(
-      `${PathNameFirebase.Product}/${payload[IFormKeys.Code]}`,
-      payload[IFormKeys.Images],
-    );
+    const tempImages = payload[IFormKeys.Images];
+    payload[IFormKeys.Images] = [];
+
+    const response = await addProduct(payload, token);
+
+    if (!response.id) return Promise.reject("Create Failed");
+
+    const urls = await uploadFirebase(`${PathNameFirebase.Product}/${response.id}`, tempImages);
 
     payload[IFormKeys.Images] = urls;
 
-    const response = await addProduct(payload, token);
+    const updateRes = await updateProduct(payload, response.id, token);
+
     revalidatePath("/");
 
-    return response.id;
+    return updateRes;
   } catch (error) {
     const errorType = throwSafeError(error).message;
     if (errorType === AuthorizationCode.AccessDenied)
@@ -50,4 +57,36 @@ export async function submitProductAction(payload: ISchemaSubmitProductForm, tok
 
     return Promise.reject(error);
   }
+}
+
+export async function updateProductAction(payload: ISchemaSubmitProductForm, productId: string, token: string) {
+  try {
+    const urls = await reUploadFirebase(`${PathNameFirebase.Product}/${productId}`, payload[IFormKeys.Images]);
+
+    payload[IFormKeys.Images] = urls;
+
+    const response = await updateProduct(payload, productId, token);
+    revalidatePath("/");
+
+    return response;
+  } catch (error) {
+    const errorType = throwSafeError(error).message;
+    if (errorType === AuthorizationCode.AccessDenied)
+      redirect(`${AdminRoute.Login}?code=${AuthorizationCode.AccessDenied}`, RedirectType.replace);
+
+    return Promise.reject(error);
+  }
+}
+
+export async function deleteProductAction(
+  payload: Partial<ISchemaSubmitProductForm & { status: StatusCode }>,
+  productId: string,
+  token: string,
+) {
+  try {
+    const response = await updateProduct(payload, productId, token);
+    revalidatePath("/");
+
+    return response;
+  } catch (error) {}
 }

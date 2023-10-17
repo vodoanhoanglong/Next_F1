@@ -20,10 +20,14 @@ export enum ErrorValues {
   RequiredImage = "Cần ít nhất 1 hình ảnh",
   RequiredDetailContent = "Mô tả chi tiết cần có",
   RequiredBrand = "Thương hiệu cần có",
+  NoSpaceCode = "Mã sản phẩm không được có khoảng cách",
 }
 
 export const SchemaSubmitProductForm = z.object({
-  [IFormKeys.Code]: z.string().min(1, ErrorValues.RequiredCode),
+  [IFormKeys.Code]: z
+    .string()
+    .min(1, ErrorValues.RequiredCode)
+    .refine((s) => !s.includes(" "), ErrorValues.NoSpaceCode),
   [IFormKeys.Name]: z.string().min(1, ErrorValues.RequiredName),
   [IFormKeys.Description]: z.string().min(1, ErrorValues.RequiredDescription),
   [IFormKeys.CategoryId]: z.string().min(1, ErrorValues.RequiredCategory),

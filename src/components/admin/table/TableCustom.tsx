@@ -16,6 +16,7 @@ export type TableCommonParam<T> = {
   data: T;
   columnKey: keyof T;
   onOpen: () => void;
+  setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
 };
 
@@ -23,7 +24,7 @@ export type TableSchemaParam<T> = Record<keyof T | "actions", (param: TableCommo
 
 export type TableCommonHeader = {
   label: string;
-  key: string;
+  key: keyof IProductData | "actions";
 };
 
 export default function TableCustom<T extends { id: string }>({
@@ -34,6 +35,7 @@ export default function TableCustom<T extends { id: string }>({
   headers,
   isLoading,
   setPage,
+  setOpenDelete,
   setActionData,
   onOpen,
 }: {
@@ -41,6 +43,7 @@ export default function TableCustom<T extends { id: string }>({
   total: number;
   page: number;
   onOpen: () => void;
+  setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setActionData: React.Dispatch<React.SetStateAction<IProductData>>;
   tableCustom: TableSchemaParam<T>;
@@ -94,6 +97,7 @@ export default function TableCustom<T extends { id: string }>({
                     data: item,
                     columnKey: columnKey as keyof T,
                     setActionData,
+                    setOpenDelete,
                     onOpen,
                   })}
                 </TableCell>

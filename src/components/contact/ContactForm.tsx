@@ -1,15 +1,11 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Snackbar } from "@mui/material";
-import Alert from "@mui/material/Alert";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 import submitAction from "./action";
 import { IFormKeys, ISchemaContactForm, SchemaContactForm } from "./schema";
 
 export default function ContactForm() {
-  const [open, setOpen] = React.useState(false);
-
   const {
     register,
     handleSubmit,
@@ -21,28 +17,32 @@ export default function ContactForm() {
   });
 
   const onSubmit: SubmitHandler<ISchemaContactForm> = async (data) => {
-    await submitAction(data);
+    const validated = SchemaContactForm.safeParse(data);
 
-    setOpen(true);
+    if (!validated.success) {
+      const errors = Object.values(validated.error.flatten().fieldErrors);
+      if (errors.length) return toast.error(errors[0][0]);
+    }
+
+    await submitAction(data);
+    toast.success("Cảm ơn bạn đã liên hệ, chúng tôi sẽ sớm liên lạc với bạn");
     reset();
   };
 
   return (
     <form className="contact__form" onSubmit={handleSubmit(onSubmit)}>
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        onClose={(e) => setOpen(false)}
-        sx={{ marginTop: "100px" }}
-      >
-        <Alert severity="success" sx={{ width: "100%", textTransform: "uppercase", fontWeight: "700" }}>
-          Cảm ơn bạn đã liên hệ với chúng tôi !!!
-        </Alert>
-      </Snackbar>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h3>
         {errors[IFormKeys.FullName] ? (
           <span className="error">{errors[IFormKeys.FullName].message}</span>

@@ -22,6 +22,7 @@ export interface IProductData {
   categoryId: string;
   brandId: string;
   metadata: ProductMetadata;
+  brand: ImageData;
 }
 
 export interface ICategoryData {

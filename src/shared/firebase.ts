@@ -37,3 +37,23 @@ export async function uploadFirebase(pathName: string, images: string[]) {
     return Promise.reject(error);
   }
 }
+
+export async function reUploadFirebase(pathName: string, images: string[]) {
+  try {
+    return Promise.all(
+      images.map((image, index) => {
+        if (image.startsWith("https")) return image;
+
+        const storageRef = ref(storage, `${pathName}/image_${index}`);
+
+        return uploadString(storageRef, image, "data_url", {
+          contentType: "image/jpg",
+        }).then(() => {
+          return getDownloadURL(storageRef);
+        });
+      }),
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}

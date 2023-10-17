@@ -21,6 +21,9 @@ const queryProductPage = gql`
         code
         icon
       }
+      brand {
+        data
+      }
     }
 
     products_aggregate(where: $productFilter) {
@@ -50,6 +53,14 @@ const mutateAddProduct = gql`
   mutation mutateAddProduct($object: products_insert_input!) {
     insert_products_one(object: $object) {
       id
+    }
+  }
+`;
+
+const mutateUpdateProduct = gql`
+  mutation updateProduct($id: uuid!, $set: products_set_input!) {
+    update_products(where: { id: { _eq: $id } }, _set: $set) {
+      affected_rows
     }
   }
 `;
@@ -133,6 +144,31 @@ export const addProduct = async (payload: ISchemaSubmitProductForm, token: strin
     });
 
     return result.data?.insert_products_one as IProductData;
+  } catch (error) {
+    const graphQl = error as ApolloError;
+    if (graphQl.graphQLErrors.length) {
+      if (graphQl.graphQLErrors[0].extensions?.code === AuthorizationCode.AccessDenied)
+        return Promise.reject(AuthorizationCode.AccessDenied);
+
+      if (ErrorMessage[graphQl.graphQLErrors[0].message as ErrorType])
+        return Promise.reject(ErrorMessage[graphQl.graphQLErrors[0].message as ErrorType]);
+    }
+
+    return Promise.reject(error);
+  }
+};
+
+export const updateProduct = async (payload: Partial<ISchemaSubmitProductForm>, id: string, token: string) => {
+  try {
+    const result = await wrapperApolloClient(token).mutate<Record<"update_products", Record<"affected_rows", number>>>({
+      mutation: mutateUpdateProduct,
+      variables: {
+        id,
+        set: payload,
+      },
+    });
+
+    return result.data?.update_products.affected_rows as number;
   } catch (error) {
     const graphQl = error as ApolloError;
     if (graphQl.graphQLErrors.length) {
