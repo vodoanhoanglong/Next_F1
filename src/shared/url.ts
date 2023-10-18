@@ -1,4 +1,6 @@
+export const categoryLimit = 12;
 export const productLimit = 12;
+
 export const relationProductLimit = 5;
 export const blogLimit = 6;
 
@@ -19,6 +21,10 @@ export interface IAuthProps {
 export interface ISortingProps {
   sortBy: string;
   sortOrder: SortOrder;
+}
+
+export interface ICategoryFilterProps extends IPaginationProps, ISortingProps, IAuthProps {
+  search?: string;
 }
 
 export interface IProductFilterProps extends IPaginationProps, ISortingProps, IAuthProps {

@@ -3,6 +3,8 @@ import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage"
 
 export enum PathNameFirebase {
   Product = "products",
+  CategoryBanner = "categories/banner",
+  CategoryLogo = "categories/logo",
 }
 
 const firebaseConfig = {

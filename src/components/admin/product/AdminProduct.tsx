@@ -27,12 +27,12 @@ import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaPar
 import ProductAction from "./ProductAction";
 import { deleteProductAction, getDataProductAction } from "./action";
 
-const ProductTableHeader: TableCommonHeader[] = [
-  { label: "Tên - Mã sản phẩm", key: "name" },
-  { label: "Giá", key: "price" },
-  { label: "Danh mục", key: "category" },
-  { label: "Thương hiệu", key: "brand" },
-  { label: "Thao tác", key: "actions" },
+const ProductTableHeader: TableCommonHeader<IProductData>[] = [
+  { label: "Tên - Mã sản phẩm", key: "name", align: "start" },
+  { label: "Giá", key: "price", align: "start" },
+  { label: "Danh mục", key: "category", align: "start" },
+  { label: "Thương hiệu", key: "brand", align: "start" },
+  { label: "Thao tác", key: "actions", align: "center" },
 ];
 
 export const ProductTableCustom = {
@@ -61,7 +61,7 @@ export const ProductTableCustom = {
       {param.data.category.name}
     </Chip>
   ),
-  brand: (param) => <p>{param.data.brand.data}</p>,
+  brand: (param) => <p className="text-bold text-medium">{param.data.brand.data}</p>,
   actions: (param) => <TableAction {...param} />,
 } as TableSchemaParam<IProductData>;
 
@@ -128,7 +128,7 @@ export default function AdminProduct() {
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setChangeFilter(new Set(e.target.value.split(",")));
 
-  const closeActon = () => {
+  const closeAction = () => {
     setActionData(initialValue);
     return setOpenDelete(false);
   };
@@ -143,13 +143,13 @@ export default function AdminProduct() {
       );
       if (!result) toast.error("Đã có lỗi xảy ra");
       else toast.success("Xoá sản phẩm thành công");
-      closeActon();
+      closeAction();
 
       return setRefetch((oldValue) => ++oldValue);
     } catch (error) {
       toast.error(throwSafeError(error).message);
 
-      return closeActon();
+      return closeAction();
     }
   };
 
@@ -403,7 +403,7 @@ export default function AdminProduct() {
       </ModalCustom>
 
       {/* Action confirm deleted */}
-      <ModalCustom isOpen={openDelete} onClose={() => closeActon()}>
+      <ModalCustom isOpen={openDelete} onClose={() => closeAction()}>
         <ModalHeader>
           <h1>Xoá sản phẩm</h1>
         </ModalHeader>
@@ -413,7 +413,7 @@ export default function AdminProduct() {
           </h2>
         </ModalBody>
         <ModalFooter>
-          <Button color="default" onClick={(e) => closeActon()}>
+          <Button color="default" onClick={(e) => closeAction()}>
             Huỷ
           </Button>
           <Button color="danger" onClick={submitDeleteProduct}>

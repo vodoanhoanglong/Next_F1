@@ -1,12 +1,11 @@
 "use client";
 import { Tooltip } from "@nextui-org/react";
 import { TableCommonParam } from ".";
-import { IProductData } from "../..";
 import { DeleteIcon } from "./DeleteIcon";
 import { EditIcon } from "./EditIcon";
 import { EyeIcon } from "./EyeIcon";
 
-export default function TableAction(params: TableCommonParam<IProductData>) {
+export default function TableAction<T>(params: TableCommonParam<T>) {
   return (
     <div className="relative flex items-center gap-2">
       <Tooltip content="Xem">
