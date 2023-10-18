@@ -25,7 +25,12 @@ import { AuthContext } from "../../../contexts";
 import { EditorFormat, EditorModule, LocalStorage, numberWithCharacter, throwSafeError } from "../../../shared";
 import { initialValue } from "./AdminProduct";
 import { submitProductAction, updateProductAction } from "./action";
-import { IFormKeys, ISchemaSubmitProductForm, SchemaOptionalProductForm, SchemaSubmitProductForm } from "./schema";
+import {
+  IProductFormKeys,
+  ISchemaSubmitProductForm,
+  SchemaOptionalProductForm,
+  SchemaSubmitProductForm,
+} from "./schema";
 
 const InputCommonStyle = {
   label: "text-black/50 dark:text-white/90",
@@ -120,9 +125,9 @@ export default function ProductAction({
 
   const onSubmit: SubmitHandler<ISchemaSubmitProductForm> = async (data) => {
     try {
-      data[IFormKeys.HtmlContent] = detailContent.length ? detailContent.html : "";
-      data[IFormKeys.Price] = price;
-      data[IFormKeys.Images] = images.slice(0, images.length - 1);
+      data[IProductFormKeys.HtmlContent] = detailContent.length ? detailContent.html : "";
+      data[IProductFormKeys.Price] = price;
+      data[IProductFormKeys.Images] = images.slice(0, images.length - 1);
 
       const validated = SchemaSubmitProductForm.safeParse(data);
 
@@ -184,7 +189,7 @@ export default function ProductAction({
                 ))}
               </div>
             )}
-            {...register(IFormKeys.CategoryId)}
+            {...register(IProductFormKeys.CategoryId)}
           >
             {(category) => (
               <SelectItem key={category.id} value={category.id} textValue={category.name}>
@@ -199,7 +204,7 @@ export default function ProductAction({
           <Select
             className="col-span-2"
             defaultSelectedKeys={[actionData.brandId]}
-            {...register(IFormKeys.BrandId)}
+            {...register(IProductFormKeys.BrandId)}
             label={`Thương hiệu`}
             placeholder="Chọn thương hiệu"
           >
@@ -212,7 +217,7 @@ export default function ProductAction({
 
           <Input
             className="col-span-2"
-            {...register(IFormKeys.Name)}
+            {...register(IProductFormKeys.Name)}
             isClearable
             radius="md"
             classNames={InputCommonStyle}
@@ -222,7 +227,7 @@ export default function ProductAction({
 
           <Input
             className="col-span-2"
-            {...register(IFormKeys.Code)}
+            {...register(IProductFormKeys.Code)}
             isClearable
             radius="md"
             classNames={InputCommonStyle}
@@ -232,7 +237,7 @@ export default function ProductAction({
 
           <Input
             className="col-span-1"
-            {...register(IFormKeys.Price)}
+            {...register(IProductFormKeys.Price)}
             isClearable
             radius="md"
             value={price ? numberWithCharacter(price) : ""}
@@ -244,7 +249,7 @@ export default function ProductAction({
 
           <Input
             className="col-span-3"
-            {...register(IFormKeys.Description)}
+            {...register(IProductFormKeys.Description)}
             isClearable
             radius="md"
             classNames={InputCommonStyle}
@@ -301,7 +306,7 @@ export default function ProductAction({
                     <GrClose />
                   </IconStyle>
                 </button>
-                <input type="text" value={item} {...register(IFormKeys.Images)} className="invisible" />
+                <input type="text" value={item} {...register(IProductFormKeys.Images)} className="invisible" />
               </label>
             ),
           )}

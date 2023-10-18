@@ -13,7 +13,12 @@ import { AuthContext } from "../../../contexts";
 import { LocalStorage, SortOrder, StatusCode, throwSafeError } from "../../../shared";
 import { SearchIcon, TableAction, TableCommonHeader, TableCustom, TableSchemaParam } from "../table";
 import { deleteCategoryAction, getDataCategoryAction, submitCategoryAction, updateCategoryAction } from "./action";
-import { IFormKeys, ISchemaSubmitCategoryForm, SchemaOptionalCategoryForm, SchemaSubmitCategoryForm } from "./schema";
+import {
+  ICategoryFormKeys,
+  ISchemaSubmitCategoryForm,
+  SchemaOptionalCategoryForm,
+  SchemaSubmitCategoryForm,
+} from "./schema";
 
 interface IData {
   categories: ICategoryData[];
@@ -148,8 +153,8 @@ export default function AdminCategory() {
 
   const onSubmit: SubmitHandler<ISchemaSubmitCategoryForm> = async (data) => {
     try {
-      data[IFormKeys.Icon] = image.logo;
-      data[IFormKeys.Image] = image.banner;
+      data[ICategoryFormKeys.Icon] = image.logo;
+      data[ICategoryFormKeys.Image] = image.banner;
 
       const validated = SchemaSubmitCategoryForm.safeParse(data);
 
@@ -304,7 +309,7 @@ export default function AdminCategory() {
           >
             <Input
               className="col-span-2"
-              {...register(IFormKeys.Name)}
+              {...register(ICategoryFormKeys.Name)}
               isClearable
               radius="md"
               classNames={InputCommonStyle}
@@ -314,7 +319,7 @@ export default function AdminCategory() {
 
             <Input
               className="col-span-2"
-              {...register(IFormKeys.Code)}
+              {...register(ICategoryFormKeys.Code)}
               isClearable
               radius="md"
               classNames={InputCommonStyle}
@@ -357,7 +362,7 @@ export default function AdminCategory() {
                     <GrClose />
                   </IconStyle>
                 </button>
-                <input type="text" value={image.banner} {...register(IFormKeys.Image)} className="invisible" />
+                <input type="text" value={image.banner} {...register(ICategoryFormKeys.Image)} className="invisible" />
               </label>
             ) : (
               <label htmlFor={`banner`} className="admin__category-action__add-upload col-span-1">
@@ -415,7 +420,7 @@ export default function AdminCategory() {
                     <GrClose />
                   </IconStyle>
                 </button>
-                <input type="text" value={image.logo} {...register(IFormKeys.Icon)} className="invisible" />
+                <input type="text" value={image.logo} {...register(ICategoryFormKeys.Icon)} className="invisible" />
               </label>
             ) : (
               <label htmlFor={`logo`} className="admin__category-action__add-upload col-span-1 col-start-3">
@@ -447,7 +452,7 @@ export default function AdminCategory() {
               className="col-span-full"
               defaultValue={actionData.description}
               classNames={InputCommonStyle}
-              {...register(IFormKeys.Description)}
+              {...register(ICategoryFormKeys.Description)}
             />
           </form>
         </ModalBody>

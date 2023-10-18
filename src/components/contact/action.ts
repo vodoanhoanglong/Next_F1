@@ -2,15 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { createContact } from "../../apis";
-import { IFormKeys, ISchemaContactForm } from "./schema";
+import { IContactFormKeys, ISchemaContactForm } from "./schema";
 
 export default async function submitAction(formData: ISchemaContactForm) {
   await createContact({
-    email: formData[IFormKeys.Email],
-    fullName: formData[IFormKeys.FullName],
-    phoneNumber: formData[IFormKeys.PhoneNumber],
+    email: formData[IContactFormKeys.Email],
+    fullName: formData[IContactFormKeys.FullName],
+    phoneNumber: formData[IContactFormKeys.PhoneNumber],
     metadata: {
-      message: formData[IFormKeys.Message],
+      message: formData[IContactFormKeys.Message],
     },
   });
 

@@ -19,7 +19,7 @@ import {
   getSearchParams,
 } from "../../../shared";
 import submitAction from "./action";
-import { IFormKeys, ISchemaLoginForm, SchemaLoginForm } from "./schema";
+import { ILoginFormKeys, ISchemaLoginForm, SchemaLoginForm } from "./schema";
 
 export default function LoginForm() {
   const [errorMsg, setErrorMsg] = React.useState("");
@@ -119,9 +119,9 @@ export default function LoginForm() {
           className="object-cover"
         />
         <label>Email</label>
-        <input type="email" required placeholder="Email của bạn" {...register(IFormKeys.Email)} />
+        <input type="email" required placeholder="Email của bạn" {...register(ILoginFormKeys.Email)} />
         <label>Mật Khẩu</label>
-        <input type="password" required placeholder="Mật khẩu của bạn" {...register(IFormKeys.Password)} />
+        <input type="password" required placeholder="Mật khẩu của bạn" {...register(ILoginFormKeys.Password)} />
         <button disabled={isSubmitting}>Đăng Nhập</button>
       </form>
     </>

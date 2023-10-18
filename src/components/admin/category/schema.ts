@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export enum IFormKeys {
+export enum ICategoryFormKeys {
   Code = "code",
   Name = "name",
   Description = "description",
@@ -8,7 +8,7 @@ export enum IFormKeys {
   Icon = "icon",
 }
 
-export enum ErrorValues {
+enum ErrorValues {
   RequiredCode = "Mã danh mục cần có",
   RequiredName = "Tên danh mục cần có",
   RequiredDescription = "Mô tả cho danh mục cần có",
@@ -18,22 +18,22 @@ export enum ErrorValues {
 }
 
 export const SchemaSubmitCategoryForm = z.object({
-  [IFormKeys.Code]: z
+  [ICategoryFormKeys.Code]: z
     .string()
     .min(1, ErrorValues.RequiredCode)
     .refine((s) => !s.includes(" "), ErrorValues.NoSpaceCode),
-  [IFormKeys.Name]: z.string().min(1, ErrorValues.RequiredName),
-  [IFormKeys.Description]: z.string().min(1, ErrorValues.RequiredDescription),
-  [IFormKeys.Icon]: z.string().min(1, ErrorValues.RequiredIcon),
-  [IFormKeys.Image]: z.string().min(1, ErrorValues.RequiredImage),
+  [ICategoryFormKeys.Name]: z.string().min(1, ErrorValues.RequiredName),
+  [ICategoryFormKeys.Description]: z.string().min(1, ErrorValues.RequiredDescription),
+  [ICategoryFormKeys.Icon]: z.string().min(1, ErrorValues.RequiredIcon),
+  [ICategoryFormKeys.Image]: z.string().min(1, ErrorValues.RequiredImage),
 });
 
 export const SchemaOptionalCategoryForm = z.object({
-  [IFormKeys.Code]: z.string().optional(),
-  [IFormKeys.Name]: z.string().optional(),
-  [IFormKeys.Icon]: z.string().optional(),
-  [IFormKeys.Image]: z.string().optional(),
-  [IFormKeys.Description]: z.string().optional(),
+  [ICategoryFormKeys.Code]: z.string().optional(),
+  [ICategoryFormKeys.Name]: z.string().optional(),
+  [ICategoryFormKeys.Icon]: z.string().optional(),
+  [ICategoryFormKeys.Image]: z.string().optional(),
+  [ICategoryFormKeys.Description]: z.string().optional(),
 });
 
 export type ISchemaSubmitCategoryForm = z.infer<typeof SchemaSubmitCategoryForm>;

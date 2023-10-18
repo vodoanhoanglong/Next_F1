@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import submitAction from "./action";
-import { IFormKeys, ISchemaContactForm, SchemaContactForm } from "./schema";
+import { IContactFormKeys, ISchemaContactForm, SchemaContactForm } from "./schema";
 
 export default function ContactForm() {
   const {
@@ -44,30 +44,39 @@ export default function ContactForm() {
         theme="light"
       />
       <h3>
-        {errors[IFormKeys.FullName] ? (
-          <span className="error">{errors[IFormKeys.FullName].message}</span>
+        {errors[IContactFormKeys.FullName] ? (
+          <span className="error">{errors[IContactFormKeys.FullName].message}</span>
         ) : (
           "Họ và tên *"
         )}
       </h3>
-      <input className="contact__form-fullName" type="text" placeholder="Tien Hung" {...register(IFormKeys.FullName)} />
+      <input
+        className="contact__form-fullName"
+        type="text"
+        placeholder="Tien Hung"
+        {...register(IContactFormKeys.FullName)}
+      />
       <div className="contact__form-divide">
         <div>
           <h3>
-            {errors[IFormKeys.Email] ? <span className="error">{errors[IFormKeys.Email].message}</span> : "Email *"}
+            {errors[IContactFormKeys.Email] ? (
+              <span className="error">{errors[IContactFormKeys.Email].message}</span>
+            ) : (
+              "Email *"
+            )}
           </h3>
           <input
             className="contact__form-email"
             type="email"
             placeholder="example@gmail.com"
-            {...register(IFormKeys.Email)}
+            {...register(IContactFormKeys.Email)}
           />
         </div>
 
         <div>
           <h3>
-            {errors[IFormKeys.PhoneNumber] ? (
-              <span className="error">{errors[IFormKeys.PhoneNumber].message}</span>
+            {errors[IContactFormKeys.PhoneNumber] ? (
+              <span className="error">{errors[IContactFormKeys.PhoneNumber].message}</span>
             ) : (
               "Số điện thoại *"
             )}
@@ -76,19 +85,24 @@ export default function ContactForm() {
             className="contact__form-phone"
             type="text"
             placeholder="0932509283"
-            {...register(IFormKeys.PhoneNumber)}
+            {...register(IContactFormKeys.PhoneNumber)}
           />
         </div>
       </div>
       <div className="contact__form-msg">
         <h3>
-          {errors[IFormKeys.Message] ? (
-            <span className="error">{errors[IFormKeys.Message].message}</span>
+          {errors[IContactFormKeys.Message] ? (
+            <span className="error">{errors[IContactFormKeys.Message].message}</span>
           ) : (
             "Thông điệp của bạn cho chúng tôi *"
           )}
         </h3>
-        <textarea rows={4} cols={50} placeholder="Chúng tôi có thể giúp gì cho bạn" {...register(IFormKeys.Message)} />
+        <textarea
+          rows={4}
+          cols={50}
+          placeholder="Chúng tôi có thể giúp gì cho bạn"
+          {...register(IContactFormKeys.Message)}
+        />
       </div>
       <div className="mt-5 flex justify-center">
         <button>Gửi đi</button>

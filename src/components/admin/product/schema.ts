@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export enum IFormKeys {
+export enum IProductFormKeys {
   Code = "code",
   Name = "name",
   Description = "description",
@@ -11,7 +11,7 @@ export enum IFormKeys {
   BrandId = "brandId",
 }
 
-export enum ErrorValues {
+enum ErrorValues {
   RequiredCategory = "Danh mục cần có",
   RequiredCode = "Mã sản phẩm cần có",
   RequiredName = "Tên sản phẩm cần có",
@@ -24,28 +24,28 @@ export enum ErrorValues {
 }
 
 export const SchemaSubmitProductForm = z.object({
-  [IFormKeys.Code]: z
+  [IProductFormKeys.Code]: z
     .string()
     .min(1, ErrorValues.RequiredCode)
     .refine((s) => !s.includes(" "), ErrorValues.NoSpaceCode),
-  [IFormKeys.Name]: z.string().min(1, ErrorValues.RequiredName),
-  [IFormKeys.Description]: z.string().min(1, ErrorValues.RequiredDescription),
-  [IFormKeys.CategoryId]: z.string().min(1, ErrorValues.RequiredCategory),
-  [IFormKeys.Price]: z.number().min(1, ErrorValues.RequiredPrice),
-  [IFormKeys.Images]: z.array(z.string()).min(1, ErrorValues.RequiredImage),
-  [IFormKeys.HtmlContent]: z.string().min(1, ErrorValues.RequiredDetailContent),
-  [IFormKeys.BrandId]: z.string().min(1, ErrorValues.RequiredBrand),
+  [IProductFormKeys.Name]: z.string().min(1, ErrorValues.RequiredName),
+  [IProductFormKeys.Description]: z.string().min(1, ErrorValues.RequiredDescription),
+  [IProductFormKeys.CategoryId]: z.string().min(1, ErrorValues.RequiredCategory),
+  [IProductFormKeys.Price]: z.number().min(1, ErrorValues.RequiredPrice),
+  [IProductFormKeys.Images]: z.array(z.string()).min(1, ErrorValues.RequiredImage),
+  [IProductFormKeys.HtmlContent]: z.string().min(1, ErrorValues.RequiredDetailContent),
+  [IProductFormKeys.BrandId]: z.string().min(1, ErrorValues.RequiredBrand),
 });
 
 export const SchemaOptionalProductForm = z.object({
-  [IFormKeys.Code]: z.string().optional(),
-  [IFormKeys.Name]: z.string().optional(),
-  [IFormKeys.Description]: z.string().optional(),
-  [IFormKeys.CategoryId]: z.string().optional(),
-  [IFormKeys.Price]: z.string().optional(),
-  [IFormKeys.Images]: z.string().optional(),
-  [IFormKeys.HtmlContent]: z.string().optional(),
-  [IFormKeys.BrandId]: z.string().optional(),
+  [IProductFormKeys.Code]: z.string().optional(),
+  [IProductFormKeys.Name]: z.string().optional(),
+  [IProductFormKeys.Description]: z.string().optional(),
+  [IProductFormKeys.CategoryId]: z.string().optional(),
+  [IProductFormKeys.Price]: z.string().optional(),
+  [IProductFormKeys.Images]: z.string().optional(),
+  [IProductFormKeys.HtmlContent]: z.string().optional(),
+  [IProductFormKeys.BrandId]: z.string().optional(),
 });
 
 export type ISchemaSubmitProductForm = z.infer<typeof SchemaSubmitProductForm>;

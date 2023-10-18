@@ -13,7 +13,7 @@ import {
   throwSafeError,
   uploadFirebase,
 } from "../../../shared";
-import { IFormKeys, ISchemaSubmitCategoryForm } from "./schema";
+import { ICategoryFormKeys, ISchemaSubmitCategoryForm } from "./schema";
 
 export async function getDataCategoryAction(filter: ICategoryFilterProps) {
   try {
@@ -38,12 +38,12 @@ export async function submitCategoryAction(payload: ISchemaSubmitCategoryForm, t
     if (!response.id) return Promise.reject("Create Failed");
 
     const [image, icon] = await Promise.all([
-      uploadFirebase(`${PathNameFirebase.CategoryBanner}/${response.id}`, [payload[IFormKeys.Image]]),
-      uploadFirebase(`${PathNameFirebase.CategoryLogo}/${response.id}`, [payload[IFormKeys.Icon]]),
+      uploadFirebase(`${PathNameFirebase.CategoryBanner}/${response.id}`, [payload[ICategoryFormKeys.Image]]),
+      uploadFirebase(`${PathNameFirebase.CategoryLogo}/${response.id}`, [payload[ICategoryFormKeys.Icon]]),
     ]);
 
-    payload[IFormKeys.Image] = image[0];
-    payload[IFormKeys.Icon] = icon[0];
+    payload[ICategoryFormKeys.Image] = image[0];
+    payload[ICategoryFormKeys.Icon] = icon[0];
 
     const updateRes = await updateCategory(payload, response.id, token);
 
@@ -61,17 +61,19 @@ export async function submitCategoryAction(payload: ISchemaSubmitCategoryForm, t
 
 export async function updateCategoryAction(payload: ISchemaSubmitCategoryForm, categoryId: string, token: string) {
   try {
-    if (payload[IFormKeys.Image].startsWith("data:")) {
+    if (payload[ICategoryFormKeys.Image].startsWith("data:")) {
       const image = await uploadFirebase(`${PathNameFirebase.CategoryBanner}/${categoryId}`, [
-        payload[IFormKeys.Image],
+        payload[ICategoryFormKeys.Image],
       ]);
-      payload[IFormKeys.Image] = image[0];
+      payload[ICategoryFormKeys.Image] = image[0];
     }
 
-    if (payload[IFormKeys.Icon].startsWith("data:")) {
-      const icon = await uploadFirebase(`${PathNameFirebase.CategoryLogo}/${categoryId}`, [payload[IFormKeys.Icon]]);
+    if (payload[ICategoryFormKeys.Icon].startsWith("data:")) {
+      const icon = await uploadFirebase(`${PathNameFirebase.CategoryLogo}/${categoryId}`, [
+        payload[ICategoryFormKeys.Icon],
+      ]);
 
-      payload[IFormKeys.Icon] = icon[0];
+      payload[ICategoryFormKeys.Icon] = icon[0];
     }
 
     const response = await updateCategory(payload, categoryId, token);

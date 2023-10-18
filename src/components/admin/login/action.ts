@@ -2,13 +2,13 @@
 
 import { signIn } from "../../../apis";
 import { throwSafeError } from "../../../shared";
-import { IFormKeys, ISchemaLoginForm } from "./schema";
+import { ILoginFormKeys, ISchemaLoginForm } from "./schema";
 
 export default async function submitAction(formData: ISchemaLoginForm) {
   try {
     const result = await signIn({
-      email: formData[IFormKeys.Email],
-      password: formData[IFormKeys.Password],
+      email: formData[ILoginFormKeys.Email],
+      password: formData[ILoginFormKeys.Password],
     });
 
     return {

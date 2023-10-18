@@ -1,20 +1,20 @@
 import { z } from "zod";
 
-export enum IFormKeys {
+export enum IContactFormKeys {
   FullName = "fullName",
   Email = "email",
   PhoneNumber = "phoneNumber",
   Message = "message",
 }
 
-export type FormValues = {
-  [IFormKeys.Email]: string;
-  [IFormKeys.Message]: string;
-  [IFormKeys.FullName]: string;
-  [IFormKeys.PhoneNumber]: string;
+export type IContactFormValues = {
+  [IContactFormKeys.Email]: string;
+  [IContactFormKeys.Message]: string;
+  [IContactFormKeys.FullName]: string;
+  [IContactFormKeys.PhoneNumber]: string;
 };
 
-export enum ErrorValues {
+enum ErrorValues {
   InvalidEmail = "Email không hợp lệ",
   RequiredFullName = "Họ và tên cần có",
   RequiredPhoneNumber = "SĐT cần có",
@@ -24,10 +24,10 @@ export enum ErrorValues {
 }
 
 export const SchemaContactForm = z.object({
-  [IFormKeys.Email]: z.string().min(1, ErrorValues.RequiredEmail).email(ErrorValues.InvalidEmail),
-  [IFormKeys.FullName]: z.string().min(1, ErrorValues.RequiredFullName),
-  [IFormKeys.PhoneNumber]: z.string().min(1, ErrorValues.RequiredPhoneNumber),
-  [IFormKeys.Message]: z.string().min(1, ErrorValues.RequiredMessage),
+  [IContactFormKeys.Email]: z.string().min(1, ErrorValues.RequiredEmail).email(ErrorValues.InvalidEmail),
+  [IContactFormKeys.FullName]: z.string().min(1, ErrorValues.RequiredFullName),
+  [IContactFormKeys.PhoneNumber]: z.string().min(1, ErrorValues.RequiredPhoneNumber),
+  [IContactFormKeys.Message]: z.string().min(1, ErrorValues.RequiredMessage),
 });
 
 export type ISchemaContactForm = z.infer<typeof SchemaContactForm>;

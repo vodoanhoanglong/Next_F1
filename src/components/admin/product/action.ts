@@ -14,7 +14,7 @@ import {
   throwSafeError,
   uploadFirebase,
 } from "../../../shared";
-import { IFormKeys, ISchemaSubmitProductForm } from "./schema";
+import { IProductFormKeys, ISchemaSubmitProductForm } from "./schema";
 
 export async function getDataProductAction(filter: IProductFilterProps) {
   try {
@@ -34,8 +34,8 @@ export async function getDataProductAction(filter: IProductFilterProps) {
 
 export async function submitProductAction(payload: ISchemaSubmitProductForm, token: string) {
   try {
-    const tempImages = payload[IFormKeys.Images];
-    payload[IFormKeys.Images] = [];
+    const tempImages = payload[IProductFormKeys.Images];
+    payload[IProductFormKeys.Images] = [];
 
     const response = await addProduct(payload, token);
 
@@ -43,7 +43,7 @@ export async function submitProductAction(payload: ISchemaSubmitProductForm, tok
 
     const urls = await uploadFirebase(`${PathNameFirebase.Product}/${response.id}`, tempImages);
 
-    payload[IFormKeys.Images] = urls;
+    payload[IProductFormKeys.Images] = urls;
 
     const updateRes = await updateCategory(payload, response.id, token);
 
@@ -61,9 +61,9 @@ export async function submitProductAction(payload: ISchemaSubmitProductForm, tok
 
 export async function updateProductAction(payload: ISchemaSubmitProductForm, productId: string, token: string) {
   try {
-    const urls = await reUploadFirebase(`${PathNameFirebase.Product}/${productId}`, payload[IFormKeys.Images]);
+    const urls = await reUploadFirebase(`${PathNameFirebase.Product}/${productId}`, payload[IProductFormKeys.Images]);
 
-    payload[IFormKeys.Images] = urls;
+    payload[IProductFormKeys.Images] = urls;
 
     const response = await updateCategory(payload, productId, token);
     revalidatePath("/");
