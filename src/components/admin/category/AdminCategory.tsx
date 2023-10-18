@@ -75,6 +75,7 @@ const InputCommonStyle = {
 const IconDefault = "/upload.png";
 
 const initialValue = {
+  id: "",
   code: "",
   name: "",
   description: "",
@@ -135,7 +136,7 @@ export default function AdminCategory() {
         banner: actionData.image,
         logo: actionData.icon,
       });
-    else closeAction();
+    else reset();
   }, [actionData]);
 
   const closeAction = () => {
@@ -292,7 +293,7 @@ export default function AdminCategory() {
       </div>
 
       {/* Action Create + Update */}
-      <ModalCustom isOpen={isOpen} onClose={() => closeAction()}>
+      <ModalCustom isOpen={isOpen} onClose={closeAction}>
         <ModalHeader className="flex flex-col gap-1 relative">
           <h1>{actionData.id ? "Cập nhật danh mục" : "Tạo mới danh mục"}</h1>
         </ModalHeader>
@@ -447,17 +448,17 @@ export default function AdminCategory() {
             )}
 
             <Textarea
+              {...register(ICategoryFormKeys.Description)}
               labelPlacement="outside"
               placeholder="Mô tả danh mục"
               className="col-span-full"
               defaultValue={actionData.description}
               classNames={InputCommonStyle}
-              {...register(ICategoryFormKeys.Description)}
             />
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" variant="light" onPress={() => closeAction()}>
+          <Button color="danger" variant="light" onPress={closeAction}>
             Huỷ
           </Button>
           <Button
