@@ -131,12 +131,13 @@ export default function AdminCategory() {
   }, [page, search, reFetch]);
 
   React.useEffect(() => {
-    if (actionData.id)
+    if (actionData.id) {
       setImage({
         banner: actionData.image,
         logo: actionData.icon,
       });
-    else reset();
+      reset();
+    } else closeAction();
   }, [actionData]);
 
   const closeAction = () => {
@@ -268,6 +269,7 @@ export default function AdminCategory() {
               </div>
             }
             onPress={(e) => {
+              reset();
               setActionData(initialValue);
               return onOpen();
             }}
