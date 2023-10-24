@@ -1,6 +1,5 @@
 "use client";
 
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HomeIcon from "@mui/icons-material/Home";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "@mui/icons-material/Search";
@@ -17,8 +16,11 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { RiArrowDownSFill } from "react-icons/ri";
 import {
   Breadcrumb,
   Card,
@@ -39,7 +41,7 @@ import {
 } from "../../shared";
 
 export default function Product({ products, categories, totalProduct }: IProductProps) {
-  const sortPrefix = "Sắp xếp theo:";
+  // const sortPrefix = "Sắp xếp theo:";
   const getSortBy = getSearchParams(KeyProductFilter.SortBy) || KeyProductSort.CreatedAt;
   const getSortOrder = getSearchParams(KeyProductFilter.SortOrder);
 
@@ -81,11 +83,6 @@ export default function Product({ products, categories, totalProduct }: IProduct
     );
   };
 
-  const handleCategoryClick = (code: string) => (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setCategorySelect(code);
-    router.push(updateSearchParams([KeyProductFilter.Category], [code]), { scroll: false });
-  };
-
   const handleSearchClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     router.push(
@@ -109,9 +106,33 @@ export default function Product({ products, categories, totalProduct }: IProduct
     <Link key={2} underline="none" color="inherit" href={NavBarLink[NavBarKey.Product]} className="breadcrumb__item">
       Sản phẩm
     </Link>,
-    <p key={3} className="breadcrumb__item">
-      {categoryObj[categorySelect] ? categoryObj[categorySelect].name : "Danh Mục"}
-    </p>,
+    <Dropdown key={3}>
+      <DropdownTrigger>
+        <div className="breadcrumb__item flex items-center gap-1">
+          {categoryObj[categorySelect] ? (
+            <div className="text-bold text-medium p-3 flex items-center gap-1">
+              <Image src={categoryObj[categorySelect].icon} quality={100} width="18" height="0" alt="icon" />
+              {categoryObj[categorySelect].name}
+            </div>
+          ) : (
+            <p>Danh Mục</p>
+          )}
+          <RiArrowDownSFill />
+        </div>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Single selection example"
+        variant="flat"
+        disallowEmptySelection
+        selectionMode="single"
+        selectedKeys={categorySelect}
+        onSelectionChange={(e) => setCategorySelect(Object.entries(e)[0][1])}
+      >
+        {categories.map((category) => (
+          <DropdownItem key={category.code}>{category.name}</DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>,
   ];
 
   return (
@@ -119,37 +140,14 @@ export default function Product({ products, categories, totalProduct }: IProduct
       <CategoryBanner category={categoryObj[categorySelect]} />
       <Breadcrumb breadcrumbs={breadcrumbs} style={{ marginTop: "50px" }} />
       <div className="product__container">
-        <div className="product__container-category">
-          <h1 className="product__container-category__title">Danh Mục</h1>
-          <Divider sx={{ margin: "0 20px" }} />
-          <div className="product__container-category__container">
-            {categories.map((category) => (
-              <button
-                onClick={handleCategoryClick(category.code)}
-                key={category.id}
-                className={`product__container-category__container-section ${
-                  category.code === categorySelect ? "selected" : ""
-                }`}
-              >
-                <div>{category.name}</div>
-                <ArrowForwardIosIcon fontSize="small" />
-              </button>
-            ))}
-          </div>
-        </div>
         <div className="product__container-item">
-          <div className="flex justify-between items-center">
+          <div className="product__container-item__filter">
             <Paper
               component="form"
               sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 400,
-                height: 50,
-                borderRadius: 1,
-                boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+                boxShadow: "none",
               }}
+              className="product__container-item__filter-search"
             >
               <InputBase
                 id="searchProduct"
@@ -157,24 +155,16 @@ export default function Product({ products, categories, totalProduct }: IProduct
                 placeholder="Tìm kiếm sản phẩm"
                 onChange={handleSearchChange}
                 defaultValue={search}
+                className="product__container-item__filter-search__label"
               />
               <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <button className="product__container-item__search" onClick={handleSearchClick}>
+              <button className="product__container-item__filter-search__btn" onClick={handleSearchClick}>
                 <SearchIcon />
               </button>
             </Paper>
-            <FormControl
-              sx={{
-                m: 1,
-                width: 300,
-                height: 50,
-                boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-                border: "none",
-                borderRadius: 1,
-                backgroundColor: "#FFFFFF",
-              }}
-            >
+            <FormControl>
               <Select
+                className="product__container-item__filter-sort"
                 value={sortBy}
                 onChange={handleSorting}
                 startAdornment={
@@ -193,17 +183,14 @@ export default function Product({ products, categories, totalProduct }: IProduct
                   </IconButton>
                 }
                 IconComponent={KeyboardArrowDownIcon}
-                className="product__container-item__sort"
               >
                 <MenuItem value="createdAt">
-                  <span>
-                    {sortPrefix}
+                  <span className="product__container-item__filter-sort__label">
                     <b> Ngày tạo</b>
                   </span>
                 </MenuItem>
                 <MenuItem value="price">
                   <span>
-                    {sortPrefix}
                     <b> Giá</b>
                   </span>
                 </MenuItem>
@@ -211,7 +198,7 @@ export default function Product({ products, categories, totalProduct }: IProduct
             </FormControl>
           </div>
           {products.length ? (
-            <div className="mt-10 mb-10 grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="product__container-item__list mt-10 mb-10 grid grid-cols-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10">
               {products.map((product) => (
                 <Card card={product} key={product.id} />
               ))}

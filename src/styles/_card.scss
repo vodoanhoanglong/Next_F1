@@ -2,7 +2,7 @@
   user-select: none;
   width: 400px;
   max-width: 400px;
-  height: 500px;
+  height: fit-content;
   background-color: #ffffff;
   box-shadow:
     0 1px 3px 0 rgba(0, 0, 0, 0.1),
@@ -21,17 +21,61 @@
     object-fit: cover;
   }
 
-  &__container {
+  &__footer {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     width: 100%;
     padding: 1rem;
 
-    h2 {
-      font-size: x-large;
+    &-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+
+      h2 {
+        font-size: x-large;
+      }
+
+      &__tag {
+        color: white;
+        background-color: #18afd9;
+        padding: 2px 5px;
+        border-radius: 5px;
+        width: fit-content;
+      }
     }
 
-    &--description {
+    &-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+
+      &__price {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 5px;
+
+        &-icon {
+          color: #ce3318;
+        }
+      }
+
+      &__brand {
+        &-icon {
+          color: #ce3318;
+        }
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+
+    &-des {
       margin: 0.5rem 0;
       color: #050505;
       height: 120px;
@@ -41,14 +85,8 @@
       overflow: hidden;
     }
 
-    &--creator {
-      display: flex;
-      align-items: center;
-      padding-top: 0.5rem;
-      ins {
-        color: #a89ec9;
-        text-decoration: none;
-      }
+    &-category {
+      margin: 5px 0;
     }
   }
   ::before {
@@ -68,11 +106,11 @@
       0 4px 6px -4px rgba(0, 0, 0, 0.1);
     transform: scale(1.005);
     --tw-translate-y: 0.125rem;
-    filter: brightness(1);
-    ::before {
-      filter: brightness(0.5);
-      top: -100%;
-      left: 200%;
-    }
+    // filter: brightness(1);
+    // ::before {
+    //   filter: brightness(0.5);
+    //   top: -100%;
+    //   left: 200%;
+    // }
   }
 }

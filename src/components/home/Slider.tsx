@@ -2,7 +2,6 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// import required modules
 import Image from "next/image";
 import { Autoplay, Pagination } from "swiper/modules";
 import { IMasterData } from ".";

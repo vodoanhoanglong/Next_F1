@@ -6,42 +6,67 @@
   &__container {
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 15% 85%;
 
     &-item {
-      padding-left: 50px;
-
-      &__search {
-        padding: 8px;
-        flex: 0 0 auto;
-        border-radius: 50%;
-        color: rgba(0, 0, 0, 0.54);
-        transition: all 0.3s;
-        margin-right: 5px;
-        justify-content: center;
-        position: relative;
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
+      &__filter {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        -webkit-box-pack: center;
-        outline: 0;
-        border: 0;
-        margin: 0;
-        user-select: none;
-        vertical-align: middle;
 
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.04);
+        &-category {
+          display: none;
         }
-      }
 
-      &__sort {
-        fieldset {
+        &-search {
+          padding: 2px 4px;
+          display: flex;
+          align-items: center;
+          width: 400px;
+          height: 50px;
+          border-radius: 1px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+
+          &__btn {
+            padding: 8px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            color: rgba(0, 0, 0, 0.54);
+            transition: all 0.3s;
+            margin-right: 5px;
+            justify-content: center;
+            position: relative;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            align-items: center;
+            -webkit-box-pack: center;
+            outline: 0;
+            border: 0;
+            margin: 0;
+            user-select: none;
+            vertical-align: middle;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.04);
+            }
+          }
+        }
+
+        &-sort {
+          width: 200px;
+          height: 50px;
+          margin: 1px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
           border: none;
-        }
+          border-radius: 1px;
+          background-color: #ffffff;
 
-        svg {
-          transition: all 0.3s;
+          fieldset {
+            border: none;
+          }
+
+          svg {
+            transition: all 0.3s;
+          }
         }
       }
 
@@ -138,6 +163,103 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .category__banner {
+    &-image {
+      height: 500px;
+      &__content {
+        overflow-y: scroll;
+        height: calc(100% - 10%);
+        width: 100%;
+        margin: 1rem;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .product {
+    &__container {
+      grid-template-columns: 100%;
+      grid-column: span 1 / span 1;
+      place-items: center;
+
+      &-category {
+        display: none;
+      }
+
+      &-item {
+        padding: 0;
+        width: 100%;
+
+        &__filter {
+          &-search {
+            width: 200px;
+
+            &__label {
+              font-size: 12px !important;
+            }
+          }
+
+          &-sort {
+            width: 150px;
+            font-size: 12px;
+
+            &__label {
+              font-size: 12px;
+            }
+          }
+        }
+
+        &__list {
+          place-items: center;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) and (min-width: 761px) {
+  .category__banner {
+    &-image {
+      &__content {
+        overflow-y: scroll;
+        width: 100%;
+        height: calc(100% - 10%);
+        margin: 1rem;
+        font-size: medium;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 761px) and (max-width: 1024px) {
+  .product {
+    &__container {
+      &-item {
+        &__list {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+          .card {
+            width: 350px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1750px) {
+  .product {
+    &__container {
+      &-item {
+        &__list {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
+      }
     }
   }
 }

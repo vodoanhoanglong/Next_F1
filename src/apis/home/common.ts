@@ -19,8 +19,12 @@ const queryDataHomePage = gql`
       images
       price
       category {
+        icon
         name
         code
+      }
+      brand {
+        data
       }
     }
 

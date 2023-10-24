@@ -13,8 +13,12 @@ const queryProductPage = gql`
       images
       price
       category {
+        icon
         name
         code
+      }
+      brand {
+        data
       }
     }
 

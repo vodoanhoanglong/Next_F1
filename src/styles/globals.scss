@@ -19,12 +19,14 @@
 @import "./admin/menu-bar";
 @import "./admin/product";
 @import "./admin/category";
+@import "./navbar";
+@import "./home";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: Poppins-Medium;
 }
 
 ::-webkit-scrollbar {
@@ -61,15 +63,6 @@
     opacity: 1;
   }
 
-  .navbar {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  }
-
-  .navbar-item:hover {
-    transition: 0.5s;
-    color: #18afd9;
-  }
-
   .slider__image {
     width: 100%;
     height: 800px;
@@ -99,43 +92,6 @@
 
     &:hover {
       color: #0f1f3d;
-    }
-  }
-
-  .footer {
-    width: 100%;
-    margin-top: 5rem;
-    padding: 2.5rem 0;
-    background-color: #0f1f3d;
-    color: white;
-    font-weight: bold;
-
-    &__container {
-      width: 50%;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-
-      li {
-        padding: 0.5rem 0;
-      }
-
-      &-info {
-        max-width: 300px;
-        word-wrap: none;
-      }
-    }
-
-    &__copyright {
-      width: 50%;
-      margin: auto;
-
-      &-divide {
-        border: none;
-        border-bottom: 1px solid #dfe2e9;
-      }
     }
   }
 
@@ -170,6 +126,14 @@
     margin-top: 50px;
     margin-bottom: 20px;
     font-size: 50px;
+    line-height: 1.4;
+  }
+
+  .h1-common-sm {
+    text-transform: uppercase;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 30px;
     line-height: 1.4;
   }
 }

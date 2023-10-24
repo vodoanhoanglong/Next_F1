@@ -43,7 +43,7 @@ export default async function ProductDetailPage({ searchParams }: IPageProps) {
     <section>
       <NavBar />
       <main className="overflow-hidden common-background">
-        <div className="w-[50%] m-auto">
+        <div className="product__detail-page">
           <Breadcrumb breadcrumbs={breadcrumbs} style={{ marginLeft: "10px", marginTop: "50px" }} />
           <ProductDetail
             product={product}

@@ -17,6 +17,7 @@ const queryProductDetailPage = gql`
         id
         code
         name
+        icon
       }
       brand {
         data
@@ -39,6 +40,7 @@ const queryProductDetailPage = gql`
         id
         code
         name
+        icon
       }
       brand {
         data

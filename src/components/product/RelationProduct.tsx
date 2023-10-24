@@ -23,7 +23,7 @@ export default function RelationProduct({
 
   const element = relationProducts.length ? (
     <div className="mb-10">
-      <div className="grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-4 sm:grid-cols-1 min-[870px]:grid-cols-2 min-[1700px]:grid-cols-3 gap-10">
         {relationProducts.map((product) => (
           <Card card={product} key={product.id} />
         ))}

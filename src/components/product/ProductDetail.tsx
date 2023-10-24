@@ -30,7 +30,7 @@ export default function ProductDetail({ product }: IProductDetailProps) {
         >
           {product.images.map((image, index) => (
             <SwiperSlide key={index}>
-              <Image src={image} alt={`main_${index}`} priority quality={100} width="0" height="0" sizes="100vw" />
+              <Image src={image} alt={`main_${index}`} priority quality={100} fill />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -47,7 +47,7 @@ export default function ProductDetail({ product }: IProductDetailProps) {
           >
             {product.images.map((image, index) => (
               <SwiperSlide key={index}>
-                <Image src={image} alt={`thump_${index}`} priority quality={100} width="0" height="0" sizes="100vw" />
+                <Image src={image} alt={`thump_${index}`} priority quality={100} fill />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -55,7 +55,13 @@ export default function ProductDetail({ product }: IProductDetailProps) {
       </div>
       <div className="product__detail-content">
         <h1>{product.name}</h1>
-        <div className="flex justify-start gap-10 whitespace-nowrap">
+        <div className="product__detail-content__info">
+          <div className="product__detail-content__info-category">
+            <p>
+              Danh mục: <b>{product.category.name}</b>
+            </p>
+            <Image src={product.category.icon} quality={100} width="18" height="0" alt="icon" />
+          </div>
           <p>
             Mã sản phẩm: <b>{product.code}</b>
           </p>
