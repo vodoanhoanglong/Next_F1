@@ -24,7 +24,7 @@ export default function News({ blogs, totalBlog, title }: INewsProps) {
   return (
     <div className="news__container">
       <h1 className="text-center">{title || "Bài viết mới"}</h1>
-      <div className="mt-5 grid grid-cols-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="news__container-list grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
         {blogs.map((blog) => (
           <Blog blog={blog} key={blog.id} />
         ))}
