@@ -16,7 +16,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -83,6 +83,12 @@ export default function Product({ products, categories, totalProduct }: IProduct
     );
   };
 
+  const handleSelectionChange = (e: Selection) => {
+    const data = Object.entries(e)[0][1];
+    setCategorySelect(data);
+    router.push(updateSearchParams([KeyProductFilter.Category], [data]), { scroll: false });
+  };
+
   const handleSearchClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     router.push(
@@ -115,7 +121,7 @@ export default function Product({ products, categories, totalProduct }: IProduct
               {categoryObj[categorySelect].name}
             </div>
           ) : (
-            <p>Danh Mục</p>
+            <p>Tất cả</p>
           )}
           <RiArrowDownSFill />
         </div>
@@ -126,9 +132,15 @@ export default function Product({ products, categories, totalProduct }: IProduct
         disallowEmptySelection
         selectionMode="single"
         selectedKeys={categorySelect}
-        onSelectionChange={(e) => setCategorySelect(Object.entries(e)[0][1])}
+        onSelectionChange={handleSelectionChange}
       >
-        {categories.map((category) => (
+        {[
+          {
+            code: "",
+            name: "Tất cả",
+          } as ICategoryData,
+          ...categories,
+        ].map((category) => (
           <DropdownItem key={category.code}>{category.name}</DropdownItem>
         ))}
       </DropdownMenu>

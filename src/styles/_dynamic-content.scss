@@ -31,3 +31,11 @@
     border: solid 1px #080808;
   }
 }
+
+@media screen and (max-width: 800px) {
+  .dynamic__content {
+    img {
+      height: 300px;
+    }
+  }
+}
