@@ -84,6 +84,7 @@ export const AdminRoute = {
   Login: "/admin/login",
   Product: "/admin/product",
   Category: "/admin/category",
+  About: "/admin/about",
 };
 
 export const guestToken = process.env.NEXT_PUBLIC_GUST_TOKEN as string;

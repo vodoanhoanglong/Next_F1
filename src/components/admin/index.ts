@@ -1,3 +1,4 @@
+export * from "./about";
 export * from "./category";
 export * from "./login";
 export * from "./menu-bar";

@@ -16,6 +16,10 @@ export const MenuBarItem = [
     label: "Danh mục",
     link: AdminRoute.Category,
   },
+  {
+    label: "Giới thiệu",
+    link: AdminRoute.About,
+  },
 ];
 export default function MenuBar({ children }: { children: React.ReactNode }) {
   const path = usePathname();

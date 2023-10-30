@@ -1,0 +1,51 @@
+.admin__about {
+  margin: 50px 20px;
+
+  &-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &-review {
+    margin-top: 100px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  &-upload {
+    width: 150px;
+    height: 100px;
+    padding: 25px 50px;
+    border-radius: 5px;
+    border: 2px dashed #000;
+    background-color: rgb(155, 219, 235);
+    cursor: pointer;
+  }
+
+  &-uploaded {
+    position: relative;
+
+    img {
+      width: 150px;
+      height: 100px;
+      border-radius: 5px;
+      object-fit: contain;
+    }
+
+    &__close {
+      position: absolute;
+      top: -10px;
+      right: -5px;
+      border-radius: 50%;
+      width: fit-content;
+      padding: 5px;
+      background-color: rgb(212, 64, 64);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: rgb(247, 28, 13);
+      }
+    }
+  }
+}
