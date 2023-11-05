@@ -13,8 +13,8 @@ export default function TableAction<T>(params: TableCommonParam<T>) {
           className="text-lg text-default-400 cursor-pointer active:opacity-50"
           onClick={(e) => {
             e.preventDefault();
-            params.setActionData(params.data);
-            return params.setOpenView(true);
+            params.setActionData?.(params.data);
+            return params.setOpenView?.(true);
           }}
         >
           <EyeIcon />
@@ -25,8 +25,8 @@ export default function TableAction<T>(params: TableCommonParam<T>) {
           className="text-lg text-default-400 cursor-pointer active:opacity-50"
           onClick={(e) => {
             e.preventDefault();
-            params.setActionData(params.data);
-            return params.onOpen();
+            params.setActionData?.(params.data);
+            return params.onOpen?.();
           }}
         >
           <EditIcon />
@@ -37,8 +37,8 @@ export default function TableAction<T>(params: TableCommonParam<T>) {
           className="text-lg text-danger cursor-pointer active:opacity-50"
           onClick={(e) => {
             e.preventDefault();
-            params.setActionData(params.data);
-            return params.setOpenDelete(true);
+            params.setActionData?.(params.data);
+            return params.setOpenDelete?.(true);
           }}
         >
           <DeleteIcon />
