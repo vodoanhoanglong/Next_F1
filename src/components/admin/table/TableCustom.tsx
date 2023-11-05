@@ -14,10 +14,10 @@ import { productLimit } from "../../../shared";
 export type TableCommonParam<T> = {
   data: T;
   columnKey: keyof T;
-  onOpen: () => void;
-  setOpenView: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
-  setActionData: React.Dispatch<React.SetStateAction<T>>;
+  onOpen?: () => void;
+  setOpenView?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDelete?: React.Dispatch<React.SetStateAction<boolean>>;
+  setActionData?: React.Dispatch<React.SetStateAction<T>>;
 };
 
 export type TableSchemaParam<T> = Record<keyof T | "actions", (param: TableCommonParam<T>) => React.JSX.Element>;
@@ -44,15 +44,11 @@ export default function TableCustom<T extends { id: string }>({
   data: T[];
   total: number;
   page: number;
-  onOpen: () => void;
-  setOpenView: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setActionData: React.Dispatch<React.SetStateAction<T>>;
   tableCustom: TableSchemaParam<T>;
   headers: TableCommonHeader<T>[];
   isLoading: boolean;
-}) {
+} & Pick<TableCommonParam<T>, "onOpen" | "setOpenView" | "setOpenDelete" | "setActionData">) {
   const totalPages = total ? Math.ceil(total / productLimit) : 0;
 
   return (

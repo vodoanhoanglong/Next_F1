@@ -6,6 +6,7 @@ export enum PathNameFirebase {
   CategoryBanner = "categories/banner",
   CategoryLogo = "categories/logo",
   AboutImage = "about/images",
+  BlogImage = "blog/images",
 }
 
 const firebaseConfig = {

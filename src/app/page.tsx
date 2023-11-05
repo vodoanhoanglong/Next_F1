@@ -1,5 +1,18 @@
+import Link from "next/link";
 import { getDataHomePage } from "../apis";
-import { Blog, Card, Footer, IMasterData, IMasterDataType, Introduction, NavBar, Partner, Slider } from "../components";
+import {
+  Blog,
+  Card,
+  Footer,
+  IMasterData,
+  IMasterDataType,
+  Introduction,
+  NavBar,
+  NavBarKey,
+  NavBarLink,
+  Partner,
+  Slider,
+} from "../components";
 
 export default async function HomePage() {
   try {
@@ -38,7 +51,9 @@ export default async function HomePage() {
           </span>
           <div className="home__blog mt-5 grid gap-10 grid-cols-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3">
             {blogs.map((blog) => (
-              <Blog blog={blog} key={blog.id} />
+              <Link key={blog.id} href={`${NavBarLink[NavBarKey.NewsDetail]}?page=1&newsId=${blog.id}`}>
+                <Blog blog={blog} />
+              </Link>
             ))}
           </div>
           <span className="mt-5 flex justify-center items-center">

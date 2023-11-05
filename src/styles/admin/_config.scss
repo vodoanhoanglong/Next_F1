@@ -1,0 +1,27 @@
+.admin__config {
+  margin: 50px 20px;
+
+  &-view {
+    h1 {
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &__slider {
+      margin: auto;
+      margin-top: 20px;
+
+      &-action {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      &-list {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-top: 30px;
+      }
+    }
+  }
+}

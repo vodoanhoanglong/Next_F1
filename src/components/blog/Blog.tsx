@@ -1,9 +1,8 @@
 "use client";
 import moment from "moment-timezone";
 import Image from "next/image";
-import Link from "next/link";
 import { AvatarImage } from ".";
-import { IMasterData, NavBarKey, NavBarLink } from "..";
+import { IMasterData } from "..";
 import { FORMAT_DATE_REVERSE, FORMAT_HOUR_MINUTE, TimezoneVN } from "../../shared";
 
 export interface SystemUser {
@@ -21,11 +20,12 @@ export interface IBlogData {
   createdAt: Date;
   creator: SystemUser;
   type: IMasterData;
+  typeId: string;
 }
 
 export default function Blog({ blog }: { blog: IBlogData }) {
   return (
-    <Link className="blog" href={`${NavBarLink[NavBarKey.NewsDetail]}?page=1&newsId=${blog.id}`}>
+    <div className="blog">
       <div className="pt-[12px] pl-[12px] pr-[12px]">
         <Image
           src={blog.banner}
@@ -57,6 +57,6 @@ export default function Blog({ blog }: { blog: IBlogData }) {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { AuthorizationCode, ErrorMessage, ErrorType } from "../../shared";
 import { wrapperApolloClient } from "../client";
 
 const mutateUpdateAbout = gql`
-  mutation updateProduct($set: master_data_set_input!) {
+  mutation updateAbout($set: master_data_set_input!) {
     update_master_data(where: { type: { _eq: "introduction" } }, _set: $set) {
       affected_rows
     }

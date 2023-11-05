@@ -1,8 +1,10 @@
 "use client";
 import { Pagination } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Blog, IBlogData } from ".";
+import { NavBarKey, NavBarLink } from "..";
 import { KeyCommonFilter, blogLimit, getSearchParams, updateSearchParams } from "../../shared";
 
 interface INewsProps {
@@ -26,7 +28,9 @@ export default function News({ blogs, totalBlog, title }: INewsProps) {
       <h1 className="text-center">{title || "Bài viết mới"}</h1>
       <div className="news__container-list grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
         {blogs.map((blog) => (
-          <Blog blog={blog} key={blog.id} />
+          <Link key={blog.id} href={`${NavBarLink[NavBarKey.NewsDetail]}?page=1&newsId=${blog.id}`}>
+            <Blog blog={blog} />
+          </Link>
         ))}
       </div>
       <div className="pagination">

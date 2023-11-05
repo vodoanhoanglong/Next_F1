@@ -4,6 +4,8 @@ export const productLimit = 12;
 export const relationProductLimit = 5;
 export const blogLimit = 6;
 
+export const contactLimit = 12;
+
 export interface IPaginationProps {
   page: number;
 }
@@ -85,6 +87,9 @@ export const AdminRoute = {
   Product: "/admin/product",
   Category: "/admin/category",
   About: "/admin/about",
+  Blog: "/admin/blog",
+  Contact: "/admin/contact",
+  Config: "/admin/config",
 };
 
 export const guestToken = process.env.NEXT_PUBLIC_GUST_TOKEN as string;
