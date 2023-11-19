@@ -20,10 +20,10 @@ export const getDataAboutPage = async () => {
     });
 
     let introduction = {} as IMasterData;
-    let partner = [] as IMasterData[];
+    let partner = [] as string[];
 
     (result.data["master_data"] as []).forEach((item: IMasterData) => {
-      if (item.type === IMasterDataType.Partner) partner.push(item);
+      if (item.type === IMasterDataType.Partner) partner = JSON.parse(item.data);
       else if (item.type) introduction = item;
     });
 

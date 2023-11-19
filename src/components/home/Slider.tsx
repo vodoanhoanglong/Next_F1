@@ -4,9 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import Image from "next/image";
 import { Autoplay, Pagination } from "swiper/modules";
-import { IMasterData } from ".";
 
-export default function Slider({ images }: { images: IMasterData[] } = { images: [] }) {
+export default function Slider({ images }: { images: string[] } = { images: [] }) {
   return (
     <Swiper
       pagination={{
@@ -22,8 +21,8 @@ export default function Slider({ images }: { images: IMasterData[] } = { images:
       {images.map((image, index) => (
         <SwiperSlide key={index} className="overflow-hidden relative">
           <Image
-            src={image.data}
-            alt={image.id}
+            src={image}
+            alt={`${image}_${index}`}
             priority
             quality={100}
             width="0"

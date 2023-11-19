@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { IMasterData, IProductData } from "../../components";
+import { ICategoryData, IMasterData, IProductData } from "../../components";
 import { IBlogData } from "../../components/blog";
 import { getClient } from "../client";
 
@@ -45,6 +45,31 @@ const queryDataHomePage = gql`
     }
   }
 `;
+
+const queryDataCategory = gql`
+  query getData {
+    categories {
+      id
+      code
+      name
+      description
+      image
+      icon
+    }
+  }
+`;
+
+export const getDataCategoryNavbar = async () => {
+  try {
+    const result = await getClient().query({
+      query: queryDataCategory,
+    });
+
+    return result.data["categories"] as ICategoryData[];
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const getDataHomePage = async () => {
   try {

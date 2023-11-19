@@ -42,6 +42,7 @@ import {
 
 export default function Product({ products, categories, totalProduct }: IProductProps) {
   // const sortPrefix = "Sắp xếp theo:";
+  const router = useRouter();
   const getSortBy = getSearchParams(KeyProductFilter.SortBy) || KeyProductSort.CreatedAt;
   const getSortOrder = getSearchParams(KeyProductFilter.SortOrder);
 
@@ -51,7 +52,14 @@ export default function Product({ products, categories, totalProduct }: IProduct
   const [categorySelect, setCategorySelect] = React.useState(getSearchParams(KeyProductFilter.Category) as string);
   const [search, setSearch] = React.useState(getSearchParams(KeyProductFilter.Search));
 
-  const router = useRouter();
+  React.useEffect(() => {
+    const category = getSearchParams(KeyProductFilter.Category);
+    if (!category) {
+      return;
+    }
+
+    setCategorySelect(category as string);
+  }, []);
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

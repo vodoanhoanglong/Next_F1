@@ -8,7 +8,7 @@ export default async function ProductPage({ searchParams }: IPageProps) {
 
     return (
       <section>
-        <NavBar />
+        <NavBar isProduct={true} />
         <main className="overflow-hidden common-background">
           <Product products={products} categories={categories} totalProduct={totalProduct} />
         </main>

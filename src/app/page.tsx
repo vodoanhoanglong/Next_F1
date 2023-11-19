@@ -18,14 +18,14 @@ export default async function HomePage() {
   try {
     const { products, masterData, blogs } = await getDataHomePage();
 
-    const sliderData = [] as IMasterData[];
-    const partnerData = [] as IMasterData[];
+    let sliderData = [] as string[];
+    let partnerData = [] as string[];
     let introduction = {} as IMasterData;
 
     masterData.forEach((item) => {
-      if (item.type === IMasterDataType.Slider) sliderData.push(item);
+      if (item.type === IMasterDataType.Slider) sliderData = JSON.parse(item.data);
       else if (item.type === IMasterDataType.Introduction) introduction = item;
-      else if (item.type === IMasterDataType.Partner) partnerData.push(item);
+      else if (item.type === IMasterDataType.Partner) partnerData = JSON.parse(item.data);
       return;
     });
 

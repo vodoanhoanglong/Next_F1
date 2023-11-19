@@ -8,7 +8,7 @@ export default function About({
 }: {
   parseData: IIntroduction;
   introduction: IMasterData;
-  partner: IMasterData[];
+  partner: string[];
 }) {
   return (
     <div className="about">

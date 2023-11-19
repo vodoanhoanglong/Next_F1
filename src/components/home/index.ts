@@ -30,8 +30,8 @@ export interface IIntroduction {
 
 export enum NavBarKey {
   Home = "home",
-  About = "about",
   Product = "product",
+  About = "about",
   News = "news",
   Contact = "contact",
   ProductDetail = "product_detail",
