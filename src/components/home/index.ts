@@ -47,7 +47,7 @@ export enum FooterKey {
 
 export const NavBarLabel = {
   [NavBarKey.About]: "GIỚI THIỆU",
-  [NavBarKey.Product]: "SẢN PHẨM",
+  [NavBarKey.Product]: "DANH MỤC",
   [NavBarKey.News]: "TIN TỨC",
   [NavBarKey.Contact]: "LIÊN HỆ",
 } as Record<string, string>;

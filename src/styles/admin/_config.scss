@@ -8,15 +8,15 @@
       text-align: center;
     }
 
+    &__action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
     &__slider {
       margin: auto;
       margin-top: 20px;
-
-      &-action {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-      }
 
       &-list {
         margin-top: 30px;
@@ -35,6 +35,12 @@
             border: 2px dashed #000;
             background-color: rgb(155, 219, 235);
             cursor: pointer;
+
+            img {
+              margin: auto;
+              width: 90px;
+              height: 90px;
+            }
           }
 
           &-uploaded {
@@ -52,6 +58,66 @@
               position: absolute;
               top: -10px;
               right: -10px;
+              border-radius: 50%;
+              width: fit-content;
+              padding: 5px;
+              background-color: rgb(212, 64, 64);
+              box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+              transition: all 0.3s;
+
+              &:hover {
+                background-color: rgb(247, 28, 13);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__partner {
+      margin: auto;
+      margin-top: 20px;
+
+      &-list {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        &__add {
+          &-upload {
+            display: flex;
+            width: 180px;
+            height: 180px;
+            padding: 25px 50px;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border: 2px dashed #000;
+            background-color: rgb(155, 219, 235);
+            cursor: pointer;
+
+            img {
+              margin: auto;
+              width: 45px;
+              height: 45px;
+            }
+          }
+
+          &-uploaded {
+            position: relative;
+
+            img {
+              width: 180px;
+              height: 180px;
+              border-radius: 5px;
+              box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+              object-fit: cover;
+            }
+
+            &__close {
+              position: absolute;
+              top: -10px;
+              right: 10px;
               border-radius: 50%;
               width: fit-content;
               padding: 5px;

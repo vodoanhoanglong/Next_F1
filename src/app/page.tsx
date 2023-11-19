@@ -35,7 +35,7 @@ export default async function HomePage() {
         <main className="overflow-hidden common-background">
           <Slider images={sliderData} />
           <span className="mt-5 flex justify-center items-center">
-            <h1 className="whitespace-nowrap h1-common sm:h1-common-sm">Danh mục sản phẩm</h1>
+            <h1 className="whitespace-nowrap h1-common sm:h1-common-sm">Danh mục</h1>
           </span>
           <div className="home__product mt-20 mb-20 mr-10 ml-10 grid gap-10 grid-cols-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 min-[1680px]:grid-cols-4">
             {products.map((product) => (
