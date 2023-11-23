@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { RedirectType } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
-import { addProduct, getDataProductAdminPage, updateCategory } from "../../../apis";
+import { addProduct, getDataProductAdminPage, updateCategory, updateProduct } from "../../../apis";
 import {
   AdminRoute,
   AuthorizationCode,
@@ -65,7 +65,7 @@ export async function updateProductAction(payload: ISchemaSubmitProductForm, pro
 
     payload[IProductFormKeys.Images] = urls;
 
-    const response = await updateCategory(payload, productId, token);
+    const response = await updateProduct(payload, productId, token);
     revalidatePath("/");
 
     return response;
@@ -84,7 +84,7 @@ export async function deleteProductAction(
   token: string,
 ) {
   try {
-    const response = await updateCategory(payload, productId, token);
+    const response = await updateProduct(payload, productId, token);
     revalidatePath("/");
 
     return response;
