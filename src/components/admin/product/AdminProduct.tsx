@@ -28,7 +28,7 @@ import ProductAction from "./ProductAction";
 import { deleteProductAction, getDataProductAction } from "./action";
 
 const ProductTableHeader: TableCommonHeader<IProductData>[] = [
-  { label: "Tên - Mã sản phẩm", key: "name", align: "start" },
+  { label: "Tên - Mã CAS", key: "name", align: "start" },
   { label: "Giá", key: "price", align: "start" },
   { label: "Danh mục", key: "category", align: "start" },
   { label: "Thương hiệu", key: "brand", align: "start" },
@@ -362,7 +362,7 @@ export default function AdminProduct() {
               <div className="grid grid-cols-2">
                 <div className="pr-3">
                   <div className="flex justify-between items-center">
-                    <span>- Mã sản phẩm:</span>
+                    <span>- Mã CAS:</span>
                     <b>{actionData.code}</b>
                   </div>
 

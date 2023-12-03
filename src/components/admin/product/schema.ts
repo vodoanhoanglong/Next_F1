@@ -13,14 +13,14 @@ export enum IProductFormKeys {
 
 enum ErrorValues {
   RequiredCategory = "Danh mục cần có",
-  RequiredCode = "Mã sản phẩm cần có",
+  RequiredCode = "Mã CAS cần có",
   RequiredName = "Tên sản phẩm cần có",
   RequiredDescription = "Mô tả ngắn sản phẩm cần có",
   RequiredPrice = "Giá sản phẩm cần có",
   RequiredImage = "Cần ít nhất 1 hình ảnh",
   RequiredDetailContent = "Mô tả chi tiết cần có",
   RequiredBrand = "Thương hiệu cần có",
-  NoSpaceCode = "Mã sản phẩm không được có khoảng cách",
+  NoSpaceCode = "Mã CAS không được có khoảng cách",
 }
 
 export const SchemaSubmitProductForm = z.object({

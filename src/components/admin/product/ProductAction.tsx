@@ -232,7 +232,7 @@ export default function ProductAction({
             radius="md"
             classNames={InputCommonStyle}
             defaultValue={actionData.code}
-            label="Mã sản phẩm"
+            label="Mã CAS"
           />
 
           <Input

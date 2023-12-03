@@ -83,6 +83,8 @@ export default function NavBar({ isProduct = false }: { isProduct?: boolean }) {
             height="0"
             sizes="100vw"
             className="object-cover"
+            style={{ cursor: "pointer" }}
+            onClick={() => router.push(`${NavBarLink[NavBarKey.Home]}`)}
           />
         </NavbarBrand>
       </NavbarContent>

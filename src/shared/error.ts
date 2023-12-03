@@ -7,5 +7,5 @@ export enum ErrorType {
 }
 
 export const ErrorMessage = {
-  [ErrorType.ProductCodeUnique]: "Mã sản phẩm đã tồn tại",
+  [ErrorType.ProductCodeUnique]: "Mã CAS đã tồn tại",
 };

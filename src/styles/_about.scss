@@ -14,7 +14,7 @@
     height: 450px;
 
     &-detail {
-      width: 100%;
+      width: 60%;
       height: 55%;
       text-align: center;
       padding: 0 10px;
@@ -59,7 +59,17 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1350px) {
+  .about {
+    &__content {
+      &-detail {
+        width: 95%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1150px) {
   .about__des-banner {
     &__out {
       width: 200px;
@@ -73,36 +83,7 @@
   }
 }
 
-@media screen and (max-width: 800px) {
-  .about {
-    &__content {
-      height: fit-content;
-      margin-bottom: 30px;
-
-      &-detail {
-        height: fit-content;
-        font-size: 15px;
-
-        h1 {
-          line-height: 1;
-        }
-      }
-    }
-    &__des-banner {
-      &__out {
-        width: 150px;
-        height: 200px;
-      }
-
-      &__in {
-        width: 250px;
-        height: 200px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 950px) {
   .about {
     h1 {
       font-size: 25px;

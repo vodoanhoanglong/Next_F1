@@ -1,5 +1,6 @@
 import Breadcrumb from "./Breadcrumb";
 import Card from "./Card";
+import CardCategory from "./CardCategory";
 import CategoryBanner from "./CategoryBanner";
 import DynamicContent from "./DynamicContent";
 import Product from "./Product";
@@ -40,4 +41,4 @@ export interface IProductProps {
   categories: ICategoryData[];
 }
 
-export { Breadcrumb, Card, CategoryBanner, DynamicContent, Product, ProductDetail, RelationProduct };
+export { Breadcrumb, Card, CardCategory, CategoryBanner, DynamicContent, Product, ProductDetail, RelationProduct };

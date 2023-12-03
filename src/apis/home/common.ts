@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { ICategoryData, IMasterData, IProductData } from "../../components";
+import { ICategoryData, IMasterData } from "../../components";
 import { IBlogData } from "../../components/blog";
 import { getClient } from "../client";
 
@@ -11,21 +11,13 @@ const queryDataHomePage = gql`
       data
     }
 
-    products(limit: 10, order_by: { createdAt: desc }) {
+    categories(order_by: { createdAt: desc }) {
       id
       code
       name
       description
-      images
-      price
-      category {
-        icon
-        name
-        code
-      }
-      brand {
-        data
-      }
+      image
+      icon
     }
 
     blogs(order_by: { createdAt: desc }, limit: 3) {
@@ -79,7 +71,7 @@ export const getDataHomePage = async () => {
 
     return {
       masterData: result.data["master_data"] as IMasterData[],
-      products: result.data["products"] as IProductData[],
+      categories: result.data["categories"] as ICategoryData[],
       blogs: result.data["blogs"] as IBlogData[],
     };
   } catch (error) {

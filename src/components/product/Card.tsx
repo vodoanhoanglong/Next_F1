@@ -1,13 +1,11 @@
 "use client";
 
-import { Chip, Divider } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsTagsFill } from "react-icons/bs";
 import { MdLocationPin } from "react-icons/md";
 import { IProductData } from ".";
 import { NavBarKey, NavBarLink } from "..";
-import { convertCurrencyToVND } from "../../shared";
 
 export default function Card({ card }: { card: IProductData }) {
   return (
@@ -37,7 +35,8 @@ export default function Card({ card }: { card: IProductData }) {
             <div className="card__footer-body__price-icon">
               <BsTagsFill />
             </div>
-            <p className="font-bold">{convertCurrencyToVND(card.price)}</p>
+            {/* <p className="font-bold">{convertCurrencyToVND(card.price)}</p> */}
+            <p className="font-bold">Giá sản phẩm: Liên hệ</p>
           </div>
           <div className="card__footer-body__brand">
             <div className="card__footer-body__brand-icon">
@@ -47,7 +46,7 @@ export default function Card({ card }: { card: IProductData }) {
           </div>
         </div>
         <p className="card__footer-des">{card.description}</p>
-        <Divider />
+        {/* <Divider />
         <div className="card__footer-category">
           <Chip
             className="text-bold text-medium"
@@ -58,7 +57,7 @@ export default function Card({ card }: { card: IProductData }) {
           >
             {card.category.name}
           </Chip>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

@@ -6,7 +6,6 @@ import React from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IProductData } from ".";
-import { convertCurrencyToVND } from "../../shared";
 
 interface IProductDetailProps {
   product: IProductData;
@@ -63,10 +62,10 @@ export default function ProductDetail({ product }: IProductDetailProps) {
             <Image src={product.category.icon} quality={100} width="18" height="0" alt="icon" />
           </div>
           <p>
-            Mã sản phẩm: <b>{product.code}</b>
+            Mã CAS: <b>{product.code}</b>
           </p>
           <p>
-            Giá: <b>{convertCurrencyToVND(product.price)}</b>
+            Giá sản phẩm: <b>Liên hệ</b>
           </p>
           <p>
             Thương hiệu: <b>{product.brand.data}</b>
