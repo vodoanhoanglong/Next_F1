@@ -73,16 +73,14 @@ export default function ProductDetail({ product }: IProductDetailProps) {
         </div>
         <h2>Mô tả nhanh:</h2>
         <p className="product__detail-content__des">{product.description}</p>
+        <br />
         <h3>Liên hệ đặt sản phẩm</h3>
         <Divider style={{ marginTop: 10, marginBottom: 10 }} />
         <div className="flex items-center gap-1">
-          <LocationOnIcon color="error" /> Chi nhánh Hà Nội: <b>0932 765 080 (Mr.Long)</b>
+          <LocationOnIcon color="error" /> Chi nhánh Hồ Chí Minh: <b>0903 929 835 (Mr. Hùng)</b>
         </div>
         <div className="flex items-center gap-1">
-          <LocationOnIcon color="error" /> Chi nhánh Đà Nẵng: <b>0909 320 502 (Mr.Hoàn)</b>
-        </div>
-        <div className="flex items-center gap-1">
-          <LocationOnIcon color="error" /> Chi nhánh Hồ Chí Minh: <b>0909 230 102 (Ms.Đào)</b>
+          <LocationOnIcon color="error" /> Chi nhánh Hồ Chí Minh: <b>0968 078 353 (Ms. Hương)</b>
         </div>
       </div>
     </div>

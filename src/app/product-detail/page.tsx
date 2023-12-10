@@ -1,5 +1,5 @@
 import HomeIcon from "@mui/icons-material/Home";
-import { Divider, Link } from "@mui/material";
+import { Link } from "@mui/material";
 import { getDataProductDetailPage } from "../../apis/product/product-detail";
 import {
   Breadcrumb,
@@ -50,22 +50,23 @@ export default async function ProductDetailPage({ searchParams }: IPageProps) {
             relationProducts={relationProducts}
             totalRelationProduct={totalRelationProducts}
           />
-          {product.htmlContent && (
-            <div>
-              <Divider />
-              <div className="flex justify-center m-[20px]">
-                <h1>Mô tả sản phẩm</h1>
+        </div>
+        <div className="product__detail-description">
+          <div className="product__detail-description__layout">
+            {product.htmlContent && (
+              <div className="product__detail-description__layout-content">
+                <div className="flex justify-center m-[20px]">
+                  <h1>Mô tả sản phẩm</h1>
+                </div>
+                <DynamicContent content={product.htmlContent} />
               </div>
-              <DynamicContent content={product.htmlContent} />
+            )}
+            <div className="product__detail-description__layout-relation">
+              <div className="flex justify-center m-[20px]">
+                <h1>Sản phẩm liên quan</h1>
+              </div>
+              <RelationProduct relationProducts={relationProducts} totalRelationProducts={totalRelationProducts} />
             </div>
-          )}
-          <br />
-          <Divider />
-          <div className="flex justify-center m-[20px] mb-[100px]">
-            <h1>Sản phẩm liên quan</h1>
-          </div>
-          <div className="flex justify-center">
-            <RelationProduct relationProducts={relationProducts} totalRelationProducts={totalRelationProducts} />
           </div>
         </div>
       </main>

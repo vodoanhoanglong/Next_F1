@@ -26,26 +26,37 @@ export default function Footer() {
               <Link
                 href={"#"}
                 onClick={(e) => {
-                  window.location = "tel:+84932765080" as unknown as Location;
+                  window.location = "tel:+84903929835" as unknown as Location;
                   e.preventDefault();
                 }}
               >
-                (+84) 932 509 283
+                (+84) 903 929 835
               </Link>
             </li>
             <li>
               <Link
                 href={"#"}
                 onClick={(e) => {
-                  window.location = "mailto:tien.hung.chemicals@gmail.com" as unknown as Location;
+                  window.location = "tel:+84968078353" as unknown as Location;
                   e.preventDefault();
                 }}
               >
-                tien.hung.chemicals@gmail.com
+                (+84) 968 078 353
               </Link>
             </li>
             <li>
-              <p>183 Nguyen Van Tang Street, Long Thanh My Ward, District 9, Thu Duc City, Vietnam</p>
+              <Link
+                href={"#"}
+                onClick={(e) => {
+                  window.location = "mailto:infotienhung@thchem.com.vn" as unknown as Location;
+                  e.preventDefault();
+                }}
+              >
+                infotienhung@thchem.com.vn
+              </Link>
+            </li>
+            <li>
+              <p>KCN Tân An, xã Tân An, huyện Vĩnh Cửu, tỉnh Đồng Nai</p>
             </li>
           </ul>
         </div>
