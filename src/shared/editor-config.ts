@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 export const EditorFormat = [
   "header",
   "font",
@@ -29,3 +31,5 @@ export const EditorModule = {
     matchVisual: false,
   },
 };
+
+export const ReactQuillDynamic = dynamic(() => import("react-quill"), { ssr: false });

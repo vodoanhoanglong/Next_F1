@@ -18,13 +18,19 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr";
 import { VscAdd } from "react-icons/vsc";
-import ReactQuill from "react-quill";
 import { ToastContainer, toast } from "react-toastify";
 import { IBlogFormKeys, ISchemaSubmitBlogForm, SchemaOptionalBlogForm, SchemaSubmitBlogForm } from ".";
 import { IconStyle, ModalCustom } from "..";
 import { Blog, IBlogData, IMasterData } from "../..";
 import { AuthContext } from "../../../contexts";
-import { EditorFormat, EditorModule, LocalStorage, blogLimit, throwSafeError } from "../../../shared";
+import {
+  EditorFormat,
+  EditorModule,
+  LocalStorage,
+  ReactQuillDynamic,
+  blogLimit,
+  throwSafeError,
+} from "../../../shared";
 import { getDataBlogAction, submitBlogAction, updateBlogAction } from "./action";
 
 const InputCommonStyle = {
@@ -338,7 +344,7 @@ export default function AdminBlog() {
                 )}
 
                 <h2 className="col-span-full">Mô tả chi tiết</h2>
-                <ReactQuill
+                <ReactQuillDynamic
                   className="col-span-full"
                   value={actionData.content}
                   onChange={(_v, _d, _s, editor) =>
@@ -475,7 +481,7 @@ export default function AdminBlog() {
                 )}
 
                 <h2 className="col-span-full">Mô tả chi tiết</h2>
-                <ReactQuill
+                <ReactQuillDynamic
                   className="col-span-full"
                   value={actionData.content}
                   onChange={(_v, _d, _s, editor) =>

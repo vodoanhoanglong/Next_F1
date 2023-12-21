@@ -7,7 +7,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiEdit2 } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
-import ReactQuill from "react-quill";
+
 import { ToastContainer, toast } from "react-toastify";
 import {
   About,
@@ -21,7 +21,7 @@ import {
   SchemaSubmitAboutForm,
 } from "../..";
 import { AuthContext } from "../../../contexts";
-import { EditorFormat, EditorModule, LocalStorage, throwSafeError } from "../../../shared";
+import { EditorFormat, EditorModule, LocalStorage, ReactQuillDynamic, throwSafeError } from "../../../shared";
 import { getDataAboutAction, updateAboutAction } from "./action";
 
 const InputCommonStyle = {
@@ -382,7 +382,7 @@ export default function AdminAbout() {
             )}
 
             <h2 className="col-span-full">Mô tả chi tiết</h2>
-            <ReactQuill
+            <ReactQuillDynamic
               className="col-span-full"
               value={detailContent.html}
               onChange={(_v, _d, _s, editor) =>

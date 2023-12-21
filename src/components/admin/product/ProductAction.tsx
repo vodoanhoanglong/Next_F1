@@ -17,12 +17,18 @@ import Image from "next/image";
 import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GrClose } from "react-icons/gr";
-import ReactQuill from "react-quill";
 import { toast } from "react-toastify";
 import { IconStyle, ModalCustom } from "..";
 import { ICategoryData, IMasterData, IProductData } from "../..";
 import { AuthContext } from "../../../contexts";
-import { EditorFormat, EditorModule, LocalStorage, numberWithCharacter, throwSafeError } from "../../../shared";
+import {
+  EditorFormat,
+  EditorModule,
+  LocalStorage,
+  ReactQuillDynamic,
+  numberWithCharacter,
+  throwSafeError,
+} from "../../../shared";
 import { initialValue } from "./AdminProduct";
 import { submitProductAction, updateProductAction } from "./action";
 import {
@@ -314,7 +320,7 @@ export default function ProductAction({
           <h2 className="col-span-full">Mô tả chi tiết sản phẩm</h2>
 
           {/* NOTE: After clear all content value still contain sometime html tags */}
-          <ReactQuill
+          <ReactQuillDynamic
             className="col-span-full"
             value={detailContent.html}
             onChange={(_v, _d, _s, editor) =>
