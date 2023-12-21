@@ -79,7 +79,7 @@
       }
     }
   }
-  ::before {
+  &::before {
     position: fixed;
     content: "";
     box-shadow: 0 0 100px 40px #ffffff08;
