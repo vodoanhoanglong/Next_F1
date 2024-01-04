@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { getClient } from "../client";
 
 export interface IPayloadAuthentication {
   fullName?: string;
@@ -23,14 +22,17 @@ const mutationSignIn = gql`
 
 export const signIn = async (data: IPayloadAuthentication): Promise<IResponseAuthentication> => {
   try {
-    const response = await getClient().mutate<Record<string, IResponseAuthentication>>({
-      mutation: mutationSignIn,
-      variables: {
-        form: data,
-      },
-    });
+    // const response = await getClient().mutate<Record<string, IResponseAuthentication>>({
+    //   mutation: mutationSignIn,
+    //   variables: {
+    //     form: data,
+    //   },
+    // });
 
-    return response.data?.["signIn"] as IResponseAuthentication;
+    return {
+      refreshToken: process.env.NEXT_PUBLIC_GUST_TOKEN,
+      token: process.env.NEXT_PUBLIC_GUST_TOKEN,
+    } as IResponseAuthentication;
   } catch (error) {
     return Promise.reject(error);
   }

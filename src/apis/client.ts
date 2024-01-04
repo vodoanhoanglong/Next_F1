@@ -13,7 +13,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: guestToken,
+      "X-Hasura-Admin-Secret": guestToken,
     },
   };
 });
@@ -42,6 +42,7 @@ export function wrapperApolloClient(authorization: string) {
     headers: {
       ...headers,
       authorization,
+      "X-Hasura-Admin-Secret": guestToken,
     },
   }));
 
