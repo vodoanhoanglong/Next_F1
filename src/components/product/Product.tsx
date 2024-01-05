@@ -1,21 +1,7 @@
 "use client";
 
 import HomeIcon from "@mui/icons-material/Home";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SearchIcon from "@mui/icons-material/Search";
-import SortIcon from "@mui/icons-material/Sort";
-import {
-  Divider,
-  FormControl,
-  IconButton,
-  InputBase,
-  Link,
-  MenuItem,
-  Pagination,
-  Paper,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Link, Pagination } from "@mui/material";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Selection } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -30,27 +16,14 @@ import {
   NavBarKey,
   NavBarLink,
 } from "../../components";
-import {
-  KeyProductFilter,
-  KeyProductSort,
-  SortOrder,
-  deleteSearchParams,
-  getSearchParams,
-  productLimit,
-  updateSearchParams,
-} from "../../shared";
+import { KeyProductFilter, getSearchParams, productLimit, updateSearchParams } from "../../shared";
 
 export default function Product({ products, categories, totalProduct }: IProductProps) {
   // const sortPrefix = "Sắp xếp theo:";
   const router = useRouter();
-  const getSortBy = getSearchParams(KeyProductFilter.SortBy) || KeyProductSort.CreatedAt;
-  const getSortOrder = getSearchParams(KeyProductFilter.SortOrder);
 
-  const [sortBy, setSortBy] = React.useState(getSortBy);
-  const [sort, setSort] = React.useState(getSortOrder === null || getSortOrder === SortOrder.Descending);
   const [page, setPage] = React.useState(Number(getSearchParams(KeyProductFilter.Page)) || 1);
   const [categorySelect, setCategorySelect] = React.useState(getSearchParams(KeyProductFilter.Category) as string);
-  const [search, setSearch] = React.useState(getSearchParams(KeyProductFilter.Search));
 
   React.useEffect(() => {
     const category = getSearchParams(KeyProductFilter.Category);
@@ -66,43 +39,10 @@ export default function Product({ products, categories, totalProduct }: IProduct
     router.push(updateSearchParams([KeyProductFilter.Page], [String(value)]), { scroll: false });
   };
 
-  const handleSearchChange = (event: any) => setSearch(event.target.value);
-
-  const handleSorting = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value);
-    router.push(
-      updateSearchParams(
-        [KeyProductFilter.SortBy, KeyProductFilter.SortOrder],
-        [String(event.target.value), sort === true ? SortOrder.Descending : SortOrder.Ascending],
-      ),
-      { scroll: false },
-    );
-  };
-
-  const handleSortOrder = () => {
-    let tempSort = !sort;
-    setSort(tempSort);
-    router.push(
-      updateSearchParams(
-        [KeyProductFilter.SortBy, KeyProductFilter.SortOrder],
-        [sortBy, tempSort === true ? SortOrder.Descending : SortOrder.Ascending],
-      ),
-      { scroll: false },
-    );
-  };
-
   const handleSelectionChange = (e: Selection) => {
     const data = Object.entries(e)[0][1];
     setCategorySelect(data);
     router.push(updateSearchParams([KeyProductFilter.Category], [data]), { scroll: false });
-  };
-
-  const handleSearchClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    router.push(
-      search ? updateSearchParams([KeyProductFilter.Search], [search]) : deleteSearchParams(KeyProductFilter.Search),
-      { scroll: false },
-    );
   };
 
   const categoryObj = categories.reduce(
@@ -161,62 +101,6 @@ export default function Product({ products, categories, totalProduct }: IProduct
       <Breadcrumb breadcrumbs={breadcrumbs} style={{ marginTop: "50px" }} />
       <div className="product__container">
         <div className="product__container-item">
-          <div className="product__container-item__filter">
-            <Paper
-              component="form"
-              sx={{
-                boxShadow: "none",
-              }}
-              className="product__container-item__filter-search"
-            >
-              <InputBase
-                id="searchProduct"
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Tìm kiếm sản phẩm"
-                onChange={handleSearchChange}
-                defaultValue={search}
-                className="product__container-item__filter-search__label"
-              />
-              <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <button className="product__container-item__filter-search__btn" onClick={handleSearchClick}>
-                <SearchIcon />
-              </button>
-            </Paper>
-            <FormControl>
-              <Select
-                className="product__container-item__filter-sort"
-                value={sortBy}
-                onChange={handleSorting}
-                startAdornment={
-                  <IconButton
-                    sx={{
-                      marginRight: "5px",
-                    }}
-                    onClick={handleSortOrder}
-                  >
-                    <SortIcon
-                      sx={{
-                        transition: "all 0.3s",
-                        transform: sort ? "" : "scaleY(-1)",
-                      }}
-                    />
-                  </IconButton>
-                }
-                IconComponent={KeyboardArrowDownIcon}
-              >
-                <MenuItem value="createdAt">
-                  <span className="product__container-item__filter-sort__label">
-                    <b> Ngày tạo</b>
-                  </span>
-                </MenuItem>
-                <MenuItem value="price">
-                  <span>
-                    <b> Giá</b>
-                  </span>
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </div>
           {products.length ? (
             <div className="product__container-item__list mt-10 mb-10 grid grid-cols-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10">
               {products.map((product) => (

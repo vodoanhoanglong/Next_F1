@@ -34,6 +34,32 @@
   }
 }
 
+.contact__bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0f1f3d;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 100;
+
+  &-content {
+    width: calc(100vw - 50%);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
+
 @media screen and (max-width: 850px) {
   .home__product {
     place-items: center;
@@ -70,6 +96,13 @@
       img {
         grid-column: span 2 / span 2;
       }
+    }
+  }
+
+  .contact__bar {
+    &-content {
+      width: 100%;
+      font-size: 13px;
     }
   }
 }

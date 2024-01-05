@@ -81,7 +81,7 @@ export const getDataProductPage = async ({ page, sortBy, sortOrder, category, se
                 [sortBy]: sortOrder,
               }
             : {
-                createdAt: "desc",
+                name: "asc",
               },
         ],
       },

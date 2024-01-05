@@ -2,10 +2,12 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Divider } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IProductData } from ".";
+import { NavBarKey, NavBarLink } from "..";
 
 interface IProductDetailProps {
   product: IProductData;
@@ -74,7 +76,9 @@ export default function ProductDetail({ product }: IProductDetailProps) {
         <h2>Mô tả nhanh:</h2>
         <p className="product__detail-content__des">{product.description}</p>
         <br />
-        <h3>Liên hệ đặt sản phẩm</h3>
+        <Link href={NavBarLink[NavBarKey.Contact]}>
+          <h3>Liên hệ đặt sản phẩm</h3>
+        </Link>
         <Divider style={{ marginTop: 10, marginBottom: 10 }} />
         <div className="flex items-center gap-1">
           <LocationOnIcon color="error" /> Chi nhánh Hồ Chí Minh: <b>0903 929 835 (Mr. Hùng)</b>

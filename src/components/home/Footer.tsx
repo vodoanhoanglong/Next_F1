@@ -4,11 +4,12 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Image from "next/image";
 import Link from "next/link";
-import { FooterKey, NavBarLabel, NavBarLink } from ".";
+import { ContactBar, FooterKey, NavBarLabel, NavBarLink } from ".";
 
 export default function Footer() {
   return (
     <footer className="footer">
+      <ContactBar />
       <div className="footer__container">
         <Image
           src="/logo.png"

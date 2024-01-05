@@ -1,9 +1,6 @@
 "use client";
-import moment from "moment-timezone";
 import Image from "next/image";
-import { AvatarImage } from ".";
 import { IMasterData } from "..";
-import { FORMAT_DATE_REVERSE, FORMAT_HOUR_MINUTE, TimezoneVN } from "../../shared";
 
 export interface SystemUser {
   fullName: string;
@@ -44,7 +41,7 @@ export default function Blog({ blog }: { blog: IBlogData }) {
         </div>
         <h2 className="blog__container-title">{blog.title}</h2>
         <p className="blog__container-description">{blog.description}</p>
-        <div className="blog__container-creator">
+        {/* <div className="blog__container-creator">
           <AvatarImage avatar={blog.creator.avatar} fullName={blog.creator.fullName} />
           <div className="blog__container-creator__info">
             <p className="font-semibold">{blog.creator.fullName}</p>
@@ -55,7 +52,7 @@ export default function Blog({ blog }: { blog: IBlogData }) {
           <button type="button" className="blog__container-creator_arrow">
             »
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

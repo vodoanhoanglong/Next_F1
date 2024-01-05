@@ -1,4 +1,5 @@
 import { IBlogData } from "..";
+import ContactBar from "./ContactBar";
 import Footer from "./Footer";
 import Introduction from "./Introduction";
 import NavBar from "./NavBar";
@@ -62,4 +63,4 @@ export const NavBarLink = {
   [NavBarKey.Contact]: "/contact",
 } as Record<string, string>;
 
-export { Footer, Introduction, NavBar, Partner, Slider };
+export { ContactBar, Footer, Introduction, NavBar, Partner, Slider };
