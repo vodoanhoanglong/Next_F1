@@ -111,7 +111,7 @@
 }
 
 .product__detail-description {
-  width: 95%;
+  width: 60%;
   margin: 0 auto;
   margin-top: 30px;
   padding-bottom: 20px;
@@ -124,7 +124,7 @@
       width: 85%;
 
       .dynamic__content {
-        padding: 10px;
+        padding: 20px;
         border-radius: 12px;
         box-shadow:
           rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -239,6 +239,7 @@
 
 @media screen and (max-width: 1400px) {
   .product__detail-description {
+    width: 75%;
     &__layout {
       &-content {
         width: 70%;
@@ -253,6 +254,7 @@
 
 @media screen and (max-width: 900px) {
   .product__detail-description {
+    width: 85%;
     &__layout {
       flex-direction: column;
       &-content {
@@ -277,6 +279,7 @@
 
 @media screen and (max-width: 650px) {
   .product__detail-description {
+    width: 95%;
     &__layout {
       flex-direction: column;
       &-content {

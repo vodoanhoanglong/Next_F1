@@ -11,7 +11,7 @@ const queryDataHomePage = gql`
       data
     }
 
-    categories(order_by: { createdAt: desc }) {
+    categories(order_by: { name: asc }) {
       id
       code
       name
@@ -40,7 +40,7 @@ const queryDataHomePage = gql`
 
 const queryDataCategory = gql`
   query getData {
-    categories {
+    categories (order_by: {name: asc}) {
       id
       code
       name

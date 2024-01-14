@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { IBlogData } from "../../components";
+import { IBlogData, IProductData } from "../../components";
 import { INewsDetailFilterProps, blogLimit } from "../../shared";
 import { getClient } from "../client";
 
@@ -40,6 +40,39 @@ const queryDataNewsDetailPage = gql`
         avatar
       }
     }
+
+    relationProducts: products(
+      order_by: { createdAt: desc }
+      limit: 10
+      offset: 0
+      where: { status: { _eq: "active" } }
+    ) {
+      id
+      code
+      images
+      name
+      price
+      description
+      category {
+        id
+        code
+        name
+        icon
+      }
+      brand {
+        data
+      }
+    }
+
+    totalRelationProducts: products_aggregate(
+      limit: 10
+      offset: 0
+      where: { status: { _eq: "active" } }
+    ) {
+      aggregate {
+        count
+      }
+    }
   }
 `;
 
@@ -58,11 +91,15 @@ export const getDataNewsDetailPage = async ({ page, newsId }: INewsDetailFilterP
 
     const totalRelationBlog = (blog.type as any)["blogs_aggregate"]["aggregate"]["count"] as number;
     const relationBlogs = blog.type.blogs;
+    const relationProducts = result.data["relationProducts"] as IProductData[];
+    const totalRelationProducts = result.data["totalRelationProducts"] as number;
 
     return {
       blog,
       relationBlogs,
       totalRelationBlog,
+      relationProducts,
+      totalRelationProducts,
     };
   } catch (error) {
     return Promise.reject(error);

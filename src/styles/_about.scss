@@ -1,5 +1,6 @@
 .about {
   width: 100%;
+
   h1 {
     text-transform: uppercase;
     font-size: 30px;
@@ -56,6 +57,11 @@
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       }
     }
+
+    .dynamic__content {
+      margin: 0 auto;
+      width: 60%;
+    }
   }
 }
 
@@ -66,19 +72,33 @@
         width: 95%;
       }
     }
+
+    &__des {
+      .dynamic__content {
+        margin: 0 auto;
+        width: 70%;
+      }
+    }
   }
 }
 
 @media screen and (max-width: 1150px) {
-  .about__des-banner {
-    &__out {
-      width: 200px;
-      height: 250px;
+  .about__des {
+    &-banner {
+      &__out {
+        width: 200px;
+        height: 250px;
+      }
+
+      &__in {
+        width: 350px;
+        height: 250px;
+      }
     }
 
-    &__in {
-      width: 350px;
-      height: 250px;
+    .dynamic__content {
+      margin: 0 auto;
+      width: 80%;
     }
   }
 }
@@ -98,18 +118,26 @@
         line-height: 1;
       }
     }
-    &__des-banner {
-      flex-direction: column;
-      margin-top: 0;
 
-      &__out {
-        width: 100%;
-        height: 250px;
+    &__des {
+      &-banner {
+        flex-direction: column;
+        margin-top: 0;
+
+        &__out {
+          width: 100%;
+          height: 250px;
+        }
+
+        &__in {
+          width: 100%;
+          height: 250px;
+        }
       }
 
-      &__in {
-        width: 100%;
-        height: 250px;
+      .dynamic__content {
+        margin: 0 auto;
+        width: 90%;
       }
     }
   }

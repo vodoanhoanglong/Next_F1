@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { getDataNewsDetailPage } from "../../apis";
-import { DynamicContent, Footer, NavBar, News } from "../../components";
+import { DynamicContent, Footer, NavBar, News, RelationProduct } from "../../components";
 import { INewsDetailFilterProps, IPageProps } from "../../shared";
 
 export default async function NewsDetailPage({ searchParams }: IPageProps) {
-  const { blog, relationBlogs, totalRelationBlog } = await getDataNewsDetailPage(
+  const { blog, relationBlogs, totalRelationBlog, totalRelationProducts, relationProducts } = await getDataNewsDetailPage(
     searchParams as INewsDetailFilterProps,
   );
 
@@ -31,8 +31,14 @@ export default async function NewsDetailPage({ searchParams }: IPageProps) {
           </div>
           <p className="news__des">{blog.description}</p>
         </div>
-        <div className="news__container">
+        <div className="news__dynamic">
           <DynamicContent content={blog.content} />
+          <div className="news__dynamic-relation">
+              <div className="flex justify-center m-[20px]">
+                <h2>Sản Phẩm Bán Chạy</h2>
+              </div>
+              <RelationProduct relationProducts={relationProducts} totalRelationProducts={totalRelationProducts} />
+            </div>
         </div>
         <News blogs={relationBlogs} totalBlog={totalRelationBlog} title="Bài viết liên quan" />
       </div>

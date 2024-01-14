@@ -32,7 +32,7 @@ export default async function HomePage() {
     return (
       <section>
         <NavBar />
-        <main className="overflow-hidden common-background">
+        <div className="overflow-hidden common-background">
           <Slider images={sliderData} />
           <span className="mt-5 flex justify-center items-center">
             <h1 className="whitespace-nowrap h1-common sm:h1-common-sm">Danh mục</h1>
@@ -60,7 +60,7 @@ export default async function HomePage() {
             <h1 className="whitespace-nowrap h1-common sm:h1-common-sm">Đối Tác Của Chúng Tôi</h1>
           </span>
           <Partner logos={partnerData} />
-        </main>
+        </div>
         <Footer />
       </section>
     );
