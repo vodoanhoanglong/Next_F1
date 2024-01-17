@@ -60,6 +60,40 @@
   }
 }
 
+.float__button {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  text-align: center;
+  z-index: 100;
+  margin-bottom: 50px;
+
+  &-zalo {
+    cursor: pointer;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+  }
+
+  &-phone {
+    cursor: pointer;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+  }
+}
+
 @media screen and (max-width: 850px) {
   .home__product {
     place-items: center;

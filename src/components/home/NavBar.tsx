@@ -57,12 +57,18 @@ export default function NavBar({ isProduct = false }: { isProduct?: boolean }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [categoryData, setCategoryData] = React.useState<ICategoryData[]>([]);
   const [input, setInput] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     getDataCategoryAction()
       .then((res) => setCategoryData(res))
       .catch((error) => Promise.reject(error));
   }, []);
+
+  const handleClick = () => router.replace(`${NavBarLink[NavBarKey.Product]}`);
+
+  const handleMouseEnter = () => setOpen(true);
+  const handleMouseLeave = () => setOpen(false);
 
   const menuItems = Object.values(NavBarKey).filter((item) => NavBarLabel[item]);
 
@@ -92,7 +98,7 @@ export default function NavBar({ isProduct = false }: { isProduct?: boolean }) {
       <NavbarContent className="navbar__link" justify="center">
         {menuItems.map((item) =>
           !isProduct && item === NavBarKey.Product ? (
-            <Dropdown key={item}>
+            <Dropdown key={item} isOpen={open} onMouseLeave={handleMouseLeave}>
               <NavbarItem>
                 <DropdownTrigger>
                   <Button
@@ -101,6 +107,8 @@ export default function NavBar({ isProduct = false }: { isProduct?: boolean }) {
                     endContent={<ChevronDown fill="currentColor" size={16} />}
                     radius="sm"
                     variant="light"
+                    onMouseEnter={handleMouseEnter}
+                    onClick={handleClick}
                   >
                     {NavBarLabel[item]}
                   </Button>
