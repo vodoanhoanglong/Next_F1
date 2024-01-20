@@ -1,3 +1,4 @@
+import "animate.css";
 import type { Metadata } from "next";
 import "react-quill/dist/quill.snow.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,9 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

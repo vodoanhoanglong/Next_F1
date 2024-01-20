@@ -1,6 +1,6 @@
 import { ContactForm, Footer, NavBar } from "../../components";
 
-export default function ContactPage() {
+export default async function ContactPage() {
   return (
     <section>
       <NavBar />

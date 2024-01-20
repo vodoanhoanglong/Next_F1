@@ -3,6 +3,7 @@
   margin: auto;
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
 
   .product__detail {
     margin-top: 30px;
@@ -75,7 +76,9 @@
       &__info {
         display: flex;
         justify-content: space-between;
-        gap: 40px;
+        flex-wrap: wrap;
+        column-gap: 20px;
+        row-gap: 2px;
         white-space: nowrap;
 
         &-category {
@@ -111,18 +114,19 @@
 }
 
 .product__detail-description {
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   margin-top: 30px;
+  padding: 0 10px;
   padding-bottom: 20px;
 
   &__layout {
     display: flex;
+    justify-content: space-between;
     gap: 40px;
 
     &-content {
-      width: 85%;
-
+      max-width: 85%;
       .dynamic__content {
         padding: 20px;
         border-radius: 12px;
@@ -133,9 +137,9 @@
       }
     }
 
-    &-relation {
-      width: 20%;
-    }
+    // &-relation {
+    //   width: 100vw;
+    // }
   }
 }
 
@@ -170,6 +174,9 @@
       }
     }
   }
+  .product__detail-description {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 501px) and (max-width: 900px) {
@@ -203,6 +210,9 @@
       }
     }
   }
+  .product__detail-description {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 901px) and (max-width: 1250px) {
@@ -235,11 +245,15 @@
       }
     }
   }
+
+  .product__detail-description {
+    width: 90%;
+    margin: 0;
+  }
 }
 
 @media screen and (max-width: 1400px) {
   .product__detail-description {
-    width: 75%;
     &__layout {
       &-content {
         width: 70%;
@@ -254,7 +268,6 @@
 
 @media screen and (max-width: 900px) {
   .product__detail-description {
-    width: 85%;
     &__layout {
       flex-direction: column;
       &-content {
@@ -279,7 +292,6 @@
 
 @media screen and (max-width: 650px) {
   .product__detail-description {
-    width: 95%;
     &__layout {
       flex-direction: column;
       &-content {
