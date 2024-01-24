@@ -18,7 +18,10 @@ export default function FloatButton() {
         />
       </Link>
 
-      <Link href="https://zalo.me/0932509283" className="animate__animated animate__heartBeat animate__infinite">
+      <Link
+        href="https://zalo.me/437370545783741746"
+        className="animate__animated animate__heartBeat animate__infinite"
+      >
         <Image
           className="float__button-zalo"
           src="/zalo.jpg"
