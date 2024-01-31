@@ -7,6 +7,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
+import TrackingCode from "../components/TrackingCode";
 import "../styles/globals.scss";
 
 export const revalidate = 0;
@@ -20,7 +21,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <TrackingCode />
       <body suppressHydrationWarning>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MJ964CSS"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         <main>{children}</main>
       </body>
     </html>
