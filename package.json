@@ -17,6 +17,7 @@
     "@mui/base": "^5.0.0-beta.14",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.8",
+    "@next/third-parties": "^14.1.0",
     "@nextui-org/react": "^2.1.13",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
@@ -44,7 +45,6 @@
     "prettier": "^3.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-gtm-module": "^2.0.11",
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
     "react-quill": "^2.0.0",
@@ -57,7 +57,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/react-gtm-module": "^2.0.3",
     "encoding": "^0.1.13"
   }
 }
